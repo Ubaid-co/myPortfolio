@@ -11,31 +11,37 @@ List dummyImages = [
 class ServicesData {
   final String title;
   final String description;
+  final String image;
 
-  ServicesData({required this.title, required this.description});
+  ServicesData({required this.title, required this.description, required this.image});
 }
 
 List<ServicesData> dummyServiceData = [
   ServicesData(
       title: "Android Applications",
       description:
-          "App development involves designing, creating, and maintaining software applications for various platforms, including mobile devices and desktops."),
+          "Crafting seamless Android experiences with a blend of innovation and functionality. My apps are designed to be user-centric, ensuring fluid performance and intuitive interfaces.",
+  image: "assets/app.png"),
   ServicesData(
       title: "IOS Applications",
       description:
-          "App development involves designing, creating, and maintaining software applications for various platforms, including mobile devices and desktops."),
+          "Delivering polished iOS applications that shine on every device. My focus is on creating elegant and robust solutions that elevate the user experience to new heights.",
+  image: "assets/app.png"),
   ServicesData(
       title: "Desktop Applications",
       description:
-          "App development involves designing, creating, and maintaining software applications for various platforms, including mobile devices and desktops."),
+          "Creating desktop applications that are reliable, efficient, and visually appealing. My goal is to provide solutions that enhance productivity and user engagement.",
+  image: "assets/desktop.png"),
   ServicesData(
       title: "MacOs Applications",
       description:
-          "App development involves designing, creating, and maintaining software applications for various platforms, including mobile devices and desktops."),
+          "Developing macOS applications that are not only powerful but also beautifully integrated with the ecosystem. I bring a touch of finesse to every desktop solution I create.",
+  image: "assets/desktop.png"),
   ServicesData(
       title: "Web Applications",
       description:
-          "App development involves designing, creating, and maintaining software applications for various platforms, including mobile devices and desktops."),
+          "Building responsive and dynamic web applications that captivate users. My web solutions are crafted to offer seamless interactions and exceptional performance across all browsers.",
+  image: "assets/web.png"),
 ];
 
 class TechnologyData {

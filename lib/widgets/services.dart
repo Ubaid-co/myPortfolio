@@ -79,7 +79,7 @@ class _ServicesPortionState extends State<ServicesPortion> {
           Text("What Can I Do Best ?", style: headingTextStyle.copyWith(color: orangeColor, fontSize: 38)),
           SizedBox(height: 40),
           SizedBox(
-            height: 250,
+            height: 270,
             child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
@@ -88,7 +88,7 @@ class _ServicesPortionState extends State<ServicesPortion> {
                 var data = widget.servicesData[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: serviceContainerWidget(data.title, data.description),
+                  child: serviceContainerWidget(data.title, data.description, data.image),
                 );
               },
             ),
@@ -98,7 +98,7 @@ class _ServicesPortionState extends State<ServicesPortion> {
     );
   }
 
-  Widget serviceContainerWidget(String title, String description) {
+  Widget serviceContainerWidget(String title, String description,image) {
     return MouseRegion(
       onEnter: (_) {
         setState(() {
@@ -111,7 +111,7 @@ class _ServicesPortionState extends State<ServicesPortion> {
         });
       },
       child: Container(
-        height: 230,
+        height: 250,
         width: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
@@ -122,14 +122,14 @@ class _ServicesPortionState extends State<ServicesPortion> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                height: 210,
+                height: 230,
                 width: 200,
                 decoration: BoxDecoration(
                   color: blackColor,
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 40),
+                  padding: const EdgeInsets.only(top: 50),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -137,9 +137,9 @@ class _ServicesPortionState extends State<ServicesPortion> {
                         title,
                         style: appBarTextStyle.copyWith(color: appWhiteColor),
                       ),
-                      SizedBox(height: 7),
+                      SizedBox(height: 12),
                       Container(height: 3,width: 35, color: orangeColor),
-                      SizedBox(height: 7),
+                      SizedBox(height: 12),
                       Text(
                         description,
                         style: descriptionStyle.copyWith(color: appWhiteColor),
@@ -153,12 +153,20 @@ class _ServicesPortionState extends State<ServicesPortion> {
               top: 15,
                 left: 20,
                 child: Container(
+                  padding: EdgeInsets.all(10),
               width: 50,
               height: 50,
               decoration: BoxDecoration(
                 color: orangeColor,
                 shape: BoxShape.circle,
               ),
+                  child: Image.asset(
+                    image,
+                    fit: BoxFit.cover,
+                    height: 40,
+                    width: 40,
+                    color: appWhiteColor,
+                  ),
             ))
           ],
         ),

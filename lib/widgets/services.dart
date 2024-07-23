@@ -15,7 +15,7 @@ class ServicesPortion extends StatefulWidget {
 
   const ServicesPortion({
     super.key,
-    this.height = 600,
+    this.height = 1200,
     this.width = double.infinity,
     required this.color,
     required this.text,
@@ -33,64 +33,130 @@ class _ServicesPortionState extends State<ServicesPortion> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
-      height: widget.height,
+      padding: EdgeInsets.only(top: 50),
       width: widget.width,
       color: widget.color,
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Column(
             children: [
-              Container(
-                width: 50,
-                height: 3,
-                decoration: BoxDecoration(
-                  color: appWhiteColor,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 50,
+                    height: 3,
+                    decoration: BoxDecoration(
+                      color: appWhiteColor,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    width: 10,
+                    height: 2,
+                    decoration: BoxDecoration(
+                      color: appWhiteColor,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    width: 5,
+                    height: 5,
+                    decoration: BoxDecoration(color: orangeColor, shape: BoxShape.circle),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(widget.text, style: headingTextStyle.copyWith(color: appWhiteColor, fontSize: 22)),
+                ],
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text("What Can I Do Best ?", style: headingTextStyle.copyWith(color: orangeColor, fontSize: 38)),
+              SizedBox(height: 40),
+              SizedBox(
+                height: 270,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: widget.servicesData.length,
+                  itemBuilder: (context, index) {
+                    var data = widget.servicesData[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: serviceContainerWidget(data.title, data.description, data.image),
+                    );
+                  },
                 ),
               ),
-              SizedBox(
-                width: 5,
-              ),
-              Container(
-                width: 10,
-                height: 2,
-                decoration: BoxDecoration(
-                  color: appWhiteColor,
-                ),
-              ),
-              SizedBox(
-                width: 5,
-              ),
-              Container(
-                width: 5,
-                height: 5,
-                decoration: BoxDecoration(color: orangeColor, shape: BoxShape.circle),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Text(widget.text, style: headingTextStyle.copyWith(color: appWhiteColor, fontSize: 22)),
             ],
           ),
-          SizedBox(
-            height: 30,
-          ),
-          Text("What Can I Do Best ?", style: headingTextStyle.copyWith(color: orangeColor, fontSize: 38)),
-          SizedBox(height: 40),
-          SizedBox(
-            height: 270,
-            child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: widget.servicesData.length,
-              itemBuilder: (context, index) {
-                var data = widget.servicesData[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: serviceContainerWidget(data.title, data.description, data.image),
-                );
-              },
+          SizedBox(height: 100,),
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 50),
+            color: darkGreenColor,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 3,
+                      decoration: BoxDecoration(
+                        color: appWhiteColor,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Container(
+                      width: 10,
+                      height: 2,
+                      decoration: BoxDecoration(
+                        color: appWhiteColor,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Container(
+                      width: 5,
+                      height: 5,
+                      decoration: BoxDecoration(color: orangeColor, shape: BoxShape.circle),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(widget.text, style: headingTextStyle.copyWith(color: appWhiteColor, fontSize: 22)),
+                  ],
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text("What Can I Do Best ?", style: headingTextStyle.copyWith(color: orangeColor, fontSize: 38)),
+                SizedBox(height: 40),
+                SizedBox(
+                  height: 270,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: widget.servicesData.length,
+                    itemBuilder: (context, index) {
+                      var data = widget.servicesData[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: serviceContainerWidget(data.title, data.description, data.image),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ],

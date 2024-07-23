@@ -5,6 +5,7 @@ const textWhiteColor = Colors.white;
 const textBlackColor = Colors.black;
 const textGreyColor = Colors.grey;
 const blackColor = Colors.black;
+const lightBlackColor = Color(0xffc0c0cff);
 const orangeColor = Colors.orange;
 const buttonColor = Color(0xFF27a694);
 const deepGreenColor = Color(0xFF21302d);

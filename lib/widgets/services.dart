@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/widgets/skills.dart';
 
 import '../consts/constants.dart';
 import '../utils/colors.dart';
@@ -97,68 +98,7 @@ class _ServicesPortionState extends State<ServicesPortion> {
             ],
           ),
           SizedBox(height: 100,),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 50),
-            color: darkGreenColor,
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 3,
-                      decoration: BoxDecoration(
-                        color: appWhiteColor,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                      width: 10,
-                      height: 2,
-                      decoration: BoxDecoration(
-                        color: appWhiteColor,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Container(
-                      width: 5,
-                      height: 5,
-                      decoration: BoxDecoration(color: orangeColor, shape: BoxShape.circle),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(widget.text, style: headingTextStyle.copyWith(color: appWhiteColor, fontSize: 22)),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Text("What Can I Do Best ?", style: headingTextStyle.copyWith(color: orangeColor, fontSize: 38)),
-                SizedBox(height: 40),
-                SizedBox(
-                  height: 270,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: widget.servicesData.length,
-                    itemBuilder: (context, index) {
-                      var data = widget.servicesData[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: serviceContainerWidget(data.title, data.description, data.image),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
+          SkillsPage(),
         ],
       ),
     );

@@ -15,6 +15,7 @@ class CustomElevatedButton extends StatelessWidget {
   final double height;
   final double width;
   final bool isPadding;
+  final bool hover;
 
   const CustomElevatedButton({
     super.key,
@@ -26,6 +27,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.height = 50,
     this.width = 320,
     this.isPadding = true,
+    this.hover = false,
     this.padding = const EdgeInsets.all(12.0),
   });
 
@@ -35,7 +37,16 @@ class CustomElevatedButton extends StatelessWidget {
       padding: isPadding == true ? const EdgeInsets.symmetric(horizontal: 15.0) : EdgeInsets.zero,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: backgroundColor, minimumSize: Size(width, height), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
+          backgroundColor: backgroundColor,
+          minimumSize: Size(width, height),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          side: hover == true
+              ? BorderSide(
+                  color: orangeColor, // Border color
+                  width: 1.0, // Border width
+                )
+              : null,
+        ),
         onPressed: onPressed,
         child: Text(text, style: buttonTextStyle.copyWith(color: textColor ?? textWhiteColor)),
       ),

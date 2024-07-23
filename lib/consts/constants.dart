@@ -17,23 +17,23 @@ class ServicesData {
 
 List<ServicesData> dummyServiceData = [
   ServicesData(
-      title: "Software Development",
+      title: "Android Applications",
       description:
           "App development involves designing, creating, and maintaining software applications for various platforms, including mobile devices and desktops."),
   ServicesData(
-      title: "App Development",
+      title: "IOS Applications",
       description:
           "App development involves designing, creating, and maintaining software applications for various platforms, including mobile devices and desktops."),
   ServicesData(
-      title: "Website Design",
+      title: "Desktop Applications",
       description:
           "App development involves designing, creating, and maintaining software applications for various platforms, including mobile devices and desktops."),
   ServicesData(
-      title: "Content Writing",
+      title: "MacOs Applications",
       description:
           "App development involves designing, creating, and maintaining software applications for various platforms, including mobile devices and desktops."),
   ServicesData(
-      title: "UI UX Design",
+      title: "Web Applications",
       description:
           "App development involves designing, creating, and maintaining software applications for various platforms, including mobile devices and desktops."),
 ];

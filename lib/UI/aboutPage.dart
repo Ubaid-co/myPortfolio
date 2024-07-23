@@ -6,9 +6,16 @@ import '../utils/colors.dart';
 import '../utils/textStyle.dart';
 import '../widgets/buttons.dart';
 
-class AboutPage extends StatelessWidget {
+class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
 
+  @override
+  State<AboutPage> createState() => _AboutPageState();
+}
+
+class _AboutPageState extends State<AboutPage> {
+  final Color hoverColor = orangeColor;
+  bool isHovered = false;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -148,14 +155,27 @@ class AboutPage extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    CustomElevatedButton(
-                      text: "Download CV",
-                      textColor: findButtonTextColor ?? textWhiteColor,
-                      onPressed: onTap,
-                      backgroundColor: findButtonColor ?? buttonColor,
-                      width: 40,
-                      height: 40,
-                      isPadding: false,
+                    MouseRegion(
+                      onEnter: (_) {
+                        setState(() {
+                          isHovered = true;
+                        });
+                      },
+                      onExit: (_) {
+                        setState(() {
+                          isHovered = false;
+                        });
+                      },
+                      child: CustomElevatedButton(
+                        text: "Download CV",
+                        textColor: findButtonTextColor ?? textWhiteColor,
+                        onPressed: onTap,
+                        backgroundColor: isHovered == true ? orangeColor : darkGreenColor ?? buttonColor,
+                        width: 40,
+                        height: 40,
+                        isPadding: false,
+                        hover: true,
+                      ),
                     )
                   ],
                 ),
@@ -226,10 +246,11 @@ class AboutPage extends StatelessWidget {
                       text: "Download CV",
                       textColor: findButtonTextColor ?? textWhiteColor,
                       onPressed: onTap,
-                      backgroundColor: findButtonColor ?? buttonColor,
+                      backgroundColor: isHovered == true ? orangeColor : darkGreenColor ?? buttonColor,
                       width: 40,
                       height: 40,
                       isPadding: false,
+                      hover: true,
                     )
                   ],
                 ),

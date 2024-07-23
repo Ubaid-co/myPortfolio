@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
           Container(key: _homeKey, child: ImageAssetContainer(image: 'assets/bg2.jpg', height: 650)),
           Container(key: _aboutKey, child: AboutPage()),
           // Container(key: _aboutKey, child: ClientsPortion(color: deepWhiteColor, text: "Clients", image: dummyImages)),
-          Container(key: _servicesKey, child: ServicesPortion(color: appWhiteColor, text: "Services", servicesData: dummyServiceData)),
+          Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "My Services", servicesData: dummyServiceData)),
           Container(key: _worksKey, child: TechnologyPortion(color: appWhiteColor, text: "Technologies", servicesData: dummyTechnologyData)),
           Container(
             key: _journeyKey,
@@ -177,7 +177,7 @@ class _HomePageState extends State<HomePage> {
           Container(key: _homeKey, child: ImageAssetContainer(image: 'assets/bg2.jpg', height: 300)),
           Container(key: _aboutKey, child: AboutPage()),
           // Container(key: _aboutKey, child: ClientsPortion(color: deepWhiteColor, text: "Clients", image: dummyImages)),
-          Container(key: _servicesKey, child: ServicesPortion(color: appWhiteColor, text: "Services", servicesData: dummyServiceData)),
+          Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "Services", servicesData: dummyServiceData)),
           Container(key: _worksKey, child: TechnologyPortion(color: appWhiteColor, text: "Technologies", servicesData: dummyTechnologyData)),
           Container(
             key: _journeyKey,

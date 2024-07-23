@@ -2,12 +2,11 @@
 
 import 'package:flutter/material.dart';
 
-
 import '../consts/constants.dart';
 import '../utils/colors.dart';
 import '../utils/textStyle.dart';
 
-class ServicesPortion extends StatelessWidget {
+class ServicesPortion extends StatefulWidget {
   final double height;
   final double width;
   final Color color;
@@ -16,7 +15,7 @@ class ServicesPortion extends StatelessWidget {
 
   const ServicesPortion({
     super.key,
-    this.height = 300,
+    this.height = 600,
     this.width = double.infinity,
     required this.color,
     required this.text,
@@ -24,27 +23,69 @@ class ServicesPortion extends StatelessWidget {
   });
 
   @override
+  State<ServicesPortion> createState() => _ServicesPortionState();
+}
+
+class _ServicesPortionState extends State<ServicesPortion> {
+  final Color hoverColor = orangeColor;
+  bool isHovered = false;
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      height: height,
-      width: width,
-      color: color,
+      padding: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
+      height: widget.height,
+      width: widget.width,
+      color: widget.color,
       child: Column(
         children: [
-          Text(
-            text,
-            style: headingTextStyle,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 50,
+                height: 3,
+                decoration: BoxDecoration(
+                  color: appWhiteColor,
+                ),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Container(
+                width: 10,
+                height: 2,
+                decoration: BoxDecoration(
+                  color: appWhiteColor,
+                ),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Container(
+                width: 5,
+                height: 5,
+                decoration: BoxDecoration(color: orangeColor, shape: BoxShape.circle),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(widget.text, style: headingTextStyle.copyWith(color: appWhiteColor, fontSize: 22)),
+            ],
           ),
-          SizedBox(height: 20),
           SizedBox(
-            height: 170,
+            height: 30,
+          ),
+          Text("What Can I Do Best ?", style: headingTextStyle.copyWith(color: orangeColor, fontSize: 38)),
+          SizedBox(height: 40),
+          SizedBox(
+            height: 250,
             child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: servicesData.length,
+              itemCount: widget.servicesData.length,
               itemBuilder: (context, index) {
-                var data = servicesData[index];
+                var data = widget.servicesData[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: serviceContainerWidget(data.title, data.description),
@@ -58,33 +99,70 @@ class ServicesPortion extends StatelessWidget {
   }
 
   Widget serviceContainerWidget(String title, String description) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      height: 150,
-      width: 200,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        border: Border.all(
-          width: 1,
-          color: buttonColor,
-          style: BorderStyle.solid,
+    return MouseRegion(
+      onEnter: (_) {
+        setState(() {
+          isHovered = true;
+        });
+      },
+      onExit: (_) {
+        setState(() {
+          isHovered = false;
+        });
+      },
+      child: Container(
+        height: 230,
+        width: 200,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: appBarTextStyle.copyWith(color: textBlackColor),
-          ),
-          SizedBox(height: 7),
-          Text(
-            description,
-            style: descriptionStyle,
-          ),
-        ],
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                height: 210,
+                width: 200,
+                decoration: BoxDecoration(
+                  color: blackColor,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: appBarTextStyle.copyWith(color: appWhiteColor),
+                      ),
+                      SizedBox(height: 7),
+                      Container(height: 3,width: 35, color: orangeColor),
+                      SizedBox(height: 7),
+                      Text(
+                        description,
+                        style: descriptionStyle.copyWith(color: appWhiteColor),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 15,
+                left: 20,
+                child: Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                color: orangeColor,
+                shape: BoxShape.circle,
+              ),
+            ))
+          ],
+        ),
       ),
     );
   }
 }
-

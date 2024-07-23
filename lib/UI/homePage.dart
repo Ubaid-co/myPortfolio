@@ -10,6 +10,7 @@ import '../widgets/imageContainer.dart';
 import '../widgets/productsPortion.dart';
 import '../widgets/services.dart';
 import '../widgets/technologyPage.dart';
+import 'aboutPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -45,24 +46,86 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           if (MediaQuery.of(context).size.width > 600) ...[
-            _buildTextButton(0, 'Home',_homeKey),
-            _buildTextButton(1, 'About',_aboutKey),
-            _buildTextButton(2, 'Services',_servicesKey),
-            _buildTextButton(3, 'Works',_worksKey),
-            _buildTextButton(4, 'Journey',_journeyKey),
+            _buildTextButton(0, 'Home', _homeKey),
+            _buildTextButton(1, 'About', _aboutKey),
+            _buildTextButton(2, 'Services', _servicesKey),
+            _buildTextButton(3, 'Works', _worksKey),
+            _buildTextButton(4, 'Journey', _journeyKey),
             Padding(
               padding: const EdgeInsets.only(right: 30.0),
-              child: _buildTextButton(5, 'Contact',_contactKey),
+              child: _buildTextButton(5, 'Contact', _contactKey),
             ),
           ] else ...[
-            IconButton(
-              icon: Icon(Icons.menu, color: appWhiteColor),
-              onPressed: () {
-                // Open a drawer or bottom sheet with the menu items for smaller screens
-              },
+            Builder(
+              builder: (context) => IconButton(
+                icon: Icon(Icons.menu, color: appWhiteColor),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              ),
             ),
           ],
         ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: deepBlackColor,
+              ),
+              child: Text(
+                'Tech Tree',
+                style: TextStyle(
+                  color: appWhiteColor,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              title: Text('Home'),
+              onTap: () {
+                _buildTextButton(0, 'Home', _homeKey);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('About'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Services'),
+              onTap: () {
+                // Navigate to Services
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Works'),
+              onTap: () {
+                _buildTextButton(3, 'Works', _worksKey);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Journey'),
+              onTap: () {
+                // Navigate to Journey
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Contact'),
+              onTap: () {
+                // Navigate to Contact
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -82,18 +145,11 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-              key: _homeKey,
-              child: ImageAssetContainer(image: 'assets/bg2.jpg', height: 650)),
-          Container(
-              key: _aboutKey,
-              child: ClientsPortion(color: deepWhiteColor, text: "Clients", image: dummyImages)),
-          Container(
-              key: _servicesKey,
-              child: ServicesPortion(color: appWhiteColor, text: "Services", servicesData: dummyServiceData)),
-          Container(
-              key: _worksKey,
-              child: TechnologyPortion(color: appWhiteColor, text: "Technologies", servicesData: dummyTechnologyData)),
+          Container(key: _homeKey, child: ImageAssetContainer(image: 'assets/bg2.jpg', height: 650)),
+          Container(key: _aboutKey, child: AboutPage()),
+          // Container(key: _aboutKey, child: ClientsPortion(color: deepWhiteColor, text: "Clients", image: dummyImages)),
+          Container(key: _servicesKey, child: ServicesPortion(color: appWhiteColor, text: "Services", servicesData: dummyServiceData)),
+          Container(key: _worksKey, child: TechnologyPortion(color: appWhiteColor, text: "Technologies", servicesData: dummyTechnologyData)),
           Container(
             key: _journeyKey,
             child: Center(
@@ -118,18 +174,11 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(
-              key: _homeKey,
-              child: ImageAssetContainer(image: 'assets/bg2.jpg', height: 300)),
-          Container(
-              key: _aboutKey,
-              child: ClientsPortion(color: deepWhiteColor, text: "Clients", image: dummyImages)),
-          Container(
-              key: _servicesKey,
-              child: ServicesPortion(color: appWhiteColor, text: "Services", servicesData: dummyServiceData)),
-          Container(
-              key: _worksKey,
-              child: TechnologyPortion(color: appWhiteColor, text: "Technologies", servicesData: dummyTechnologyData)),
+          Container(key: _homeKey, child: ImageAssetContainer(image: 'assets/bg2.jpg', height: 300)),
+          Container(key: _aboutKey, child: AboutPage()),
+          // Container(key: _aboutKey, child: ClientsPortion(color: deepWhiteColor, text: "Clients", image: dummyImages)),
+          Container(key: _servicesKey, child: ServicesPortion(color: appWhiteColor, text: "Services", servicesData: dummyServiceData)),
+          Container(key: _worksKey, child: TechnologyPortion(color: appWhiteColor, text: "Technologies", servicesData: dummyTechnologyData)),
           Container(
             key: _journeyKey,
             child: Center(
@@ -148,7 +197,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildTextButton(int index, String text,GlobalKey key) {
+  Widget _buildTextButton(int index, String text, GlobalKey key) {
     bool isSelected = selectedIndex == index;
     bool isHovered = hoveredIndex == index;
 
@@ -195,12 +244,13 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
   void _scrollToSection(GlobalKey key) {
     final context = key.currentContext;
     if (context != null) {
       Scrollable.ensureVisible(
         context,
-        duration: Duration(milliseconds: 1400),
+        duration: Duration(milliseconds: 1000),
         curve: Curves.easeInOut,
       );
     }

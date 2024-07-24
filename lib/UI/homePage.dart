@@ -10,6 +10,7 @@ import '../widgets/imageContainer.dart';
 import '../widgets/productsPortion.dart';
 import '../widgets/services.dart';
 import '../widgets/technologyPage.dart';
+import '../widgets/workSection.dart';
 import 'aboutPage.dart';
 
 class HomePage extends StatefulWidget {
@@ -88,20 +89,20 @@ class _HomePageState extends State<HomePage> {
           Container(key: _aboutKey, child: AboutPage()),
           // Container(key: _aboutKey, child: ClientsPortion(color: deepWhiteColor, text: "Clients", image: dummyImages)),
           Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "My Services", servicesData: dummyServiceData)),
-          Container(key: _worksKey, child: TechnologyPortion(color: appWhiteColor, text: "Technologies", servicesData: dummyTechnologyData)),
-          Container(
-            key: _journeyKey,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: Text(
-                  "Products",
-                  style: headingTextStyle,
-                ),
-              ),
-            ),
-          ),
-          ProductsPortion(),
+          Container(key: _worksKey, child: PortfolioPage()),
+          // Container(
+          //   key: _journeyKey,
+          //   child: Center(
+          //     child: Padding(
+          //       padding: const EdgeInsets.symmetric(vertical: 20.0),
+          //       child: Text(
+          //         "Products",
+          //         style: headingTextStyle,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // ProductsPortion(),
         ],
       ),
     );
@@ -117,20 +118,20 @@ class _HomePageState extends State<HomePage> {
           Container(key: _aboutKey, child: AboutPage()),
           // Container(key: _aboutKey, child: ClientsPortion(color: deepWhiteColor, text: "Clients", image: dummyImages)),
           Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "Services", servicesData: dummyServiceData)),
-          Container(key: _worksKey, child: TechnologyPortion(color: appWhiteColor, text: "Technologies", servicesData: dummyTechnologyData)),
-          Container(
-            key: _journeyKey,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: Text(
-                  "Products",
-                  style: headingTextStyle,
-                ),
-              ),
-            ),
-          ),
-          ProductsPortion(),
+          Container(key: _worksKey, child: PortfolioPage()),
+          // Container(
+          //   key: _journeyKey,
+          //   child: Center(
+          //     child: Padding(
+          //       padding: const EdgeInsets.symmetric(vertical: 20.0),
+          //       child: Text(
+          //         "Products",
+          //         style: headingTextStyle,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // ProductsPortion(),
         ],
       ),
     );

@@ -16,19 +16,22 @@ class PortfolioPage extends StatefulWidget {
 }
 
 class _PortfolioPageState extends State<PortfolioPage> {
+  int selectedIndex = 0;
+  final Color selectedColor = orangeColor;
+  int hoveredIndex = -1;
+  Color hoverColor = orangeColor;
+  bool isHovered = false;
+
   @override
   Widget build(BuildContext context) {
-     Color hoverColor = orangeColor;
-    bool isHovered = false;
     return Center(
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 270),
         color: lightGreenColor,
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,64 +69,118 @@ class _PortfolioPageState extends State<PortfolioPage> {
                 ],
               ),
               SizedBox(
-                height: 20,
+                height: 40,
               ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("My Creative Work", style: headingTextStyle.copyWith(color: orangeColor, fontSize: 36)),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          FilterButton(label: 'ALL'),
-                          FilterButton(label: 'WEB APP'),
-                          FilterButton(label: 'MOBILE APP'),
-                          FilterButton(label: 'SAAS APP'),
-                          FilterButton(label: 'WIRE FRAME'),
-                        ],
+                  Row(
+                    children: [
+                      _buildTextButton(
+                        0,
+                        "All",
                       ),
-                    ),
+                      _buildTextButton(
+                        1,
+                        "Android Apps",
+                      ),
+                      _buildTextButton(
+                        2,
+                        "IOS Apps",
+                      ),
+                      _buildTextButton(
+                        3,
+                        "Web Apps",
+                      ),
+                      _buildTextButton(
+                        4,
+                        "Desktop Apps",
+                      ),
+                    ],
                   ),
                 ],
               ),
               SizedBox(
-                height: 20,
+                height: 40,
               ),
               CustomGrid(),
               SizedBox(
                 height: 30,
               ),
               Center(
-                child: MouseRegion(
-                  onEnter: (_) {
-                    setState(() {
-                      isHovered = true;
-                    });
-                  },
-                  onExit: (_) {
-                    setState(() {
-                      isHovered = false;
-                    });
-                  },
-                  child: CustomElevatedButton(
-                    text: "View More",
-                    textColor: textWhiteColor,
-                    onPressed: (){},
-                    backgroundColor: isHovered == true ? orangeColor : darkGreenColor ?? buttonColor,
-                    width: 40,
-                    height: 40,
-                    isPadding: false,
-                    hover: true,
-                  ),
-                )
-              ),
+                  child: MouseRegion(
+                onEnter: (_) {
+                  setState(() {
+                    isHovered = true;
+                  });
+                },
+                onExit: (_) {
+                  setState(() {
+                    isHovered = false;
+                  });
+                },
+                child: CustomElevatedButton(
+                  text: "View More",
+                  textColor: textWhiteColor,
+                  onPressed: () {},
+                  backgroundColor: isHovered == true ? orangeColor : darkGreenColor ?? buttonColor,
+                  width: 40,
+                  height: 40,
+                  isPadding: false,
+                  hover: true,
+                ),
+              )),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextButton(int index, String text, {GlobalKey? key}) {
+    bool isSelected = selectedIndex == index;
+    bool isHovered = hoveredIndex == index;
+
+    return MouseRegion(
+      onEnter: (_) {
+        setState(() {
+          hoveredIndex = index;
+        });
+      },
+      onExit: (_) {
+        setState(() {
+          hoveredIndex = -1;
+        });
+      },
+      child: TextButton(
+        onPressed: () {
+          setState(() {
+            selectedIndex = index;
+            // _scrollToSection(key);
+          });
+        },
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              text,
+              style: appBarTextStyle.copyWith(
+                color: isSelected
+                    ? selectedColor
+                    : isHovered
+                        ? hoverColor
+                        : appWhiteColor,
+              ),
+            ),
+            if (isSelected || isHovered)
+              Container(
+                margin: const EdgeInsets.only(top: 4.0),
+                height: 2.0,
+                width: isHovered ? 8.0 : 20,
+                color: selectedColor,
+              ),
+          ],
         ),
       ),
     );

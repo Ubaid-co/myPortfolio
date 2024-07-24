@@ -9,7 +9,9 @@ import 'buttons.dart';
 import 'customGridView.dart';
 
 class PortfolioPage extends StatefulWidget {
-  const PortfolioPage({super.key});
+  final bool isNarrow;
+
+  const PortfolioPage({super.key, this.isNarrow = false});
 
   @override
   State<PortfolioPage> createState() => _PortfolioPageState();
@@ -26,7 +28,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 270),
+        padding: widget.isNarrow == true ? const EdgeInsets.symmetric(horizontal: 20) : const EdgeInsets.symmetric(horizontal: 270),
         color: lightGreenColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -38,8 +40,8 @@ class _PortfolioPageState extends State<PortfolioPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: 50,
-                    height: 3,
+                    width: widget.isNarrow == true ? 20 : 50,
+                    height: widget.isNarrow == true ? 1.5 : 3,
                     decoration: BoxDecoration(
                       color: appWhiteColor,
                     ),
@@ -48,8 +50,8 @@ class _PortfolioPageState extends State<PortfolioPage> {
                     width: 5,
                   ),
                   Container(
-                    width: 10,
-                    height: 2,
+                    width: widget.isNarrow == true ? 5 : 10,
+                    height: widget.isNarrow == true ? 0.5 : 2,
                     decoration: BoxDecoration(
                       color: appWhiteColor,
                     ),
@@ -58,23 +60,53 @@ class _PortfolioPageState extends State<PortfolioPage> {
                     width: 5,
                   ),
                   Container(
-                    width: 5,
-                    height: 5,
+                    width: widget.isNarrow == true ? 2.5 : 5,
+                    height: widget.isNarrow == true ? 2.5 : 5,
                     decoration: BoxDecoration(color: orangeColor, shape: BoxShape.circle),
                   ),
                   SizedBox(
                     width: 10,
                   ),
-                  Text("Portfolio", style: headingTextStyle.copyWith(color: appWhiteColor, fontSize: 24)),
+                  Text("Portfolio", style: widget.isNarrow == true ? headingTextStyle.copyWith(color: appWhiteColor, fontSize: 14) : headingTextStyle.copyWith(color: appWhiteColor, fontSize: 24)),
                 ],
               ),
               SizedBox(
                 height: 40,
               ),
-              Row(
+              widget.isNarrow == false?  Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("My Creative Work", style: headingTextStyle.copyWith(color: orangeColor, fontSize: 36)),
+                  Text("My Creative Work", style:widget.isNarrow == true ? headingTextStyle.copyWith(color: appWhiteColor, fontSize: 20) : headingTextStyle.copyWith(color: orangeColor, fontSize: 36)),
+                  Row(
+                    children: [
+                      _buildTextButton(
+                        0,
+                        "All",
+                      ),
+                      _buildTextButton(
+                        1,
+                        "Android Apps",
+                      ),
+                      _buildTextButton(
+                        2,
+                        "IOS Apps",
+                      ),
+                      _buildTextButton(
+                        3,
+                        "Web Apps",
+                      ),
+                      _buildTextButton(
+                        4,
+                        "Desktop Apps",
+                      ),
+                    ],
+                  ),
+                ],
+              ):Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text("My Creative Work", style:widget.isNarrow == true ? headingTextStyle.copyWith(color: appWhiteColor, fontSize: 20) : headingTextStyle.copyWith(color: orangeColor, fontSize: 36)),
+                  SizedBox(height: 20,),
                   Row(
                     children: [
                       _buildTextButton(
@@ -104,7 +136,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
               SizedBox(
                 height: 40,
               ),
-              CustomGrid(),
+              CustomGrid(isNarrow: widget.isNarrow,),
               SizedBox(
                 height: 30,
               ),
@@ -171,13 +203,14 @@ class _PortfolioPageState extends State<PortfolioPage> {
                     : isHovered
                         ? hoverColor
                         : appWhiteColor,
+                fontSize: widget.isNarrow == true ? 8 : 16,
               ),
             ),
             if (isSelected || isHovered)
               Container(
                 margin: const EdgeInsets.only(top: 4.0),
-                height: 2.0,
-                width: isHovered ? 8.0 : 20,
+                height: widget.isNarrow == true ? 0.5:2.0,
+                width: isHovered ? widget.isNarrow == true ?4.0: 8.0 : 20,
                 color: selectedColor,
               ),
           ],

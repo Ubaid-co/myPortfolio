@@ -16,6 +16,7 @@ class CustomElevatedButton extends StatelessWidget {
   final double width;
   final bool isPadding;
   final bool hover;
+  final double fontSize;
 
   const CustomElevatedButton({
     super.key,
@@ -28,6 +29,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.width = 320,
     this.isPadding = true,
     this.hover = false,
+    this.fontSize = 16,
     this.padding = const EdgeInsets.all(12.0),
   });
 
@@ -48,7 +50,7 @@ class CustomElevatedButton extends StatelessWidget {
               : null,
         ),
         onPressed: onPressed,
-        child: Text(text, style: buttonTextStyle.copyWith(color: textColor ?? textWhiteColor)),
+        child: Text(text, style: buttonTextStyle.copyWith(color: textColor ?? textWhiteColor, fontSize: fontSize)),
       ),
     );
   }

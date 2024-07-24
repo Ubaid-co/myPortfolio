@@ -7,7 +7,8 @@ import '../utils/colors.dart';
 import 'buttons.dart';
 
 class CustomGrid extends StatefulWidget {
-  const CustomGrid({super.key});
+  final bool isNarrow;
+  const CustomGrid({super.key, this.isNarrow = false});
 
   @override
   State<CustomGrid> createState() => _CustomGridState();
@@ -236,25 +237,26 @@ class _CustomGridState extends State<CustomGrid> {
             children: [
               Text(
                 "Hovered",
-                style: TextStyle(color: Colors.white, fontSize: 24),
+                style: widget.isNarrow == true ? headingTextStyle.copyWith(color: appWhiteColor, fontSize: 14) : TextStyle(color: Colors.white, fontSize: 24),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
                 "Hire me for more apps",
-                style: TextStyle(color: Colors.white, fontSize: 16),
+                style: TextStyle(color: Colors.white, fontSize: widget.isNarrow == true ? 8 : 16),
               ),
               SizedBox(
                 height: 20,
               ),
               CustomElevatedButton(
                 text: "Explore",
+                fontSize: widget.isNarrow == true ? 8 : 16,
                 textColor: textBlackColor,
                 onPressed: () {},
                 backgroundColor: appWhiteColor,
-                width: 40,
-                height: 40,
+                width: widget.isNarrow == true ? 25 : 40,
+                height: widget.isNarrow == true ? 25 : 40,
                 isPadding: false,
               )
             ],

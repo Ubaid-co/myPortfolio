@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
           Container(key: _aboutKey, child: AboutPage()),
           // Container(key: _aboutKey, child: ClientsPortion(color: deepWhiteColor, text: "Clients", image: dummyImages)),
           Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "Services", servicesData: dummyServiceData)),
-          Container(key: _worksKey, child: PortfolioPage()),
+          Container(key: _worksKey, child: PortfolioPage(isNarrow: true,)),
           // Container(
           //   key: _journeyKey,
           //   child: Center(

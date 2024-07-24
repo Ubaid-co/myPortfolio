@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/widgets/skillsBubble.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../utils/colors.dart';
 import '../utils/textStyle.dart';
@@ -14,9 +15,26 @@ class SkillsPage extends StatefulWidget {
   State<SkillsPage> createState() => _SkillsPageState();
 }
 
-class _SkillsPageState extends State<SkillsPage> {
+class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
   final Color hoverColor = orangeColor;
   bool isHovered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 2),
+    );
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +97,8 @@ class _SkillsPageState extends State<SkillsPage> {
       decoration: BoxDecoration(color: color),
       child: isNarrow == false
           ? Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Column(
@@ -168,10 +186,13 @@ class _SkillsPageState extends State<SkillsPage> {
                   SizedBox(
                     width: 50,
                   ),
-                  skillSet(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 30),
+                    child: skillSet(),
+                  ),
                 ],
               ),
-          )
+            )
           : Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -257,24 +278,57 @@ class _SkillsPageState extends State<SkillsPage> {
   Widget skillSet() {
     return Column(
       children: [
-        skillSetRow("Flutter Development", "90", appWhiteColor, Colors.pink, 180)
+        skillSetRow("Flutter Development", "90", deepBlackColor, pinkShade, 270),
+        SizedBox(
+          height: 20,
+        ),
+        skillSetRow("Graphic Designing", "85", deepBlackColor, blueShade, 230, expanded: true),
+        SizedBox(
+          height: 20,
+        ),
+        skillSetRow("UI UX Designing", "55", deepBlackColor, orangeShade, 160, ui: true),
+        SizedBox(
+          height: 50,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            skillIndicator("Flutter UI", 0.85, Colors.amber, 90),
+            skillIndicator("Dart", 0.8, Colors.purple, 85),
+            skillIndicator("API Integration", 0.78, Colors.pinkAccent, 83),
+            skillIndicator("Payment Integration", 0.7, Colors.blueAccent, 80),
+          ],
+        ),
       ],
     );
   }
 
-  Widget skillSetRow(String title, number, Color containerBgColor, containerOverlayColor, double width) {
+  Widget skillSetRow(
+    String title,
+    number,
+    Color containerBgColor,
+    containerOverlayColor,
+    double width, {
+    bool expanded = false,
+    bool ui = false,
+  }) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           title,
           style: headingTextStyle.copyWith(color: appWhiteColor, fontSize: 16),
         ),
         SizedBox(
-          width: 15,
+          width: expanded == true
+              ? 28
+              : ui == true
+                  ? 40
+                  : 15,
         ),
         skillSetContainer(containerBgColor, containerOverlayColor, width),
         SizedBox(
-          width: 15,
+          width: 25,
         ),
         skillSetBubble(number, containerOverlayColor),
       ],
@@ -282,19 +336,23 @@ class _SkillsPageState extends State<SkillsPage> {
   }
 
   Widget skillSetContainer(Color bgColor, overlayColor, double width) {
-    return Container(
-      height: 10,
-      width: 300,
-      decoration: BoxDecoration(
-        color: bgColor,
-      ),
-      child: Container(
-        height: 10,
-        width: 150,
-        decoration: BoxDecoration(
-          color: overlayColor,
+    return Stack(
+      children: [
+        Container(
+          height: 7,
+          width: 300,
+          decoration: BoxDecoration(
+            color: bgColor,
+          ),
         ),
-      ),
+        Container(
+          height: 7,
+          width: width,
+          decoration: BoxDecoration(
+            color: overlayColor,
+          ),
+        )
+      ],
     );
   }
 
@@ -304,6 +362,44 @@ class _SkillsPageState extends State<SkillsPage> {
         text: text,
         bubbleColor: bgColor, // Customize the color here
         textColor: Colors.white, // Customize the text color here
+      ),
+    );
+  }
+
+  Widget skillIndicator(String skill, double percentage, Color color, int value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 23.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (context, child) {
+              return CircularPercentIndicator(
+                radius: 50.0,
+                lineWidth: 8.0,
+                animation: true,
+                percent: percentage * _controller.value,
+                center: Text(
+                  "${(value * _controller.value).toInt()}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                    color: Colors.white,
+                  ),
+                ),
+                circularStrokeCap: CircularStrokeCap.square,
+                progressColor: color,
+                backgroundColor: Colors.grey[800]!,
+              );
+            },
+          ),
+          SizedBox(height: 10),
+          Text(
+            skill,
+            style: TextStyle(color: Colors.white, fontSize: 14.0),
+          ),
+        ],
       ),
     );
   }

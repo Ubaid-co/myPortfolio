@@ -60,72 +60,11 @@ class _HomePageState extends State<HomePage> {
               builder: (context) => IconButton(
                 icon: Icon(Icons.menu, color: appWhiteColor),
                 onPressed: () {
-                  Scaffold.of(context).openDrawer();
                 },
               ),
             ),
           ],
         ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: deepBlackColor,
-              ),
-              child: Text(
-                'Tech Tree',
-                style: TextStyle(
-                  color: appWhiteColor,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              title: Text('Home'),
-              onTap: () {
-                _buildTextButton(0, 'Home', _homeKey);
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('About'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('Services'),
-              onTap: () {
-                // Navigate to Services
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('Works'),
-              onTap: () {
-                _buildTextButton(3, 'Works', _worksKey);
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('Journey'),
-              onTap: () {
-                // Navigate to Journey
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text('Contact'),
-              onTap: () {
-                // Navigate to Contact
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {

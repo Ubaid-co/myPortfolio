@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
@@ -34,14 +34,14 @@ class BubblePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = bubbleColor;
     final rect = Rect.fromLTRB(0, 0, size.width, size.height);
-    final bubbleRRect = RRect.fromRectAndRadius(rect, Radius.circular(12));
+    final bubbleRRect = RRect.fromRectAndRadius(rect, Radius.circular(5));
 
     canvas.drawRRect(bubbleRRect, paint);
 
     final arrowPath = Path()
-      ..moveTo(size.width / 2 - 5, size.height)
-      ..lineTo(size.width / 2, size.height + 10)
-      ..lineTo(size.width / 2 + 5, size.height)
+      ..moveTo(0, size.height / 2 - 5)
+      ..lineTo(-10, size.height / 2)
+      ..lineTo(0, size.height / 2 + 5)
       ..close();
 
     canvas.drawPath(arrowPath, paint);

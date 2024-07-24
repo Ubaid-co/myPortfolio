@@ -25,7 +25,7 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 7),
     );
     _controller.forward();
   }
@@ -70,7 +70,7 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
 
   Widget _buildWideNarrowAboutSection() {
     return Container(
-      height: 700,
+      height: 900,
       color: darkGreenColor,
       child: productContainerWidget(
           "About Me",
@@ -266,37 +266,34 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
                     )
                   ],
                 ),
-                SizedBox(
-                  width: 20,
-                ),
-                skillSet()
+                skillSet(isNarrow: true)
               ],
             ),
     );
   }
 
-  Widget skillSet() {
+  Widget skillSet({bool isNarrow = false}) {
     return Column(
       children: [
-        skillSetRow("Flutter Development", "90", deepBlackColor, pinkShade, 270),
+        skillSetRow("Flutter Development", "90", deepBlackColor, pinkShade, isNarrow == true ? 115 : 270, isNarrow: isNarrow),
         SizedBox(
           height: 20,
         ),
-        skillSetRow("Graphic Designing", "85", deepBlackColor, blueShade, 230, expanded: true),
+        skillSetRow("Graphic Designing", "85", deepBlackColor, blueShade, isNarrow == true ? 95 : 230, expanded: true, isNarrow: isNarrow),
         SizedBox(
           height: 20,
         ),
-        skillSetRow("UI UX Designing", "55", deepBlackColor, orangeShade, 160, ui: true),
+        skillSetRow("UI UX Designing", "55", deepBlackColor, orangeShade, isNarrow == true ? 60 : 160, ui: true, isNarrow: isNarrow),
         SizedBox(
-          height: 50,
+          height: isNarrow == true ? 20 : 50,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            skillIndicator("Flutter UI", 0.85, Colors.amber, 90),
-            skillIndicator("Dart", 0.8, Colors.purple, 85),
-            skillIndicator("API Integration", 0.78, Colors.pinkAccent, 83),
-            skillIndicator("Payment Integration", 0.7, Colors.blueAccent, 80),
+            skillIndicator("Flutter UI", 0.95, Colors.amber, 95, isNarrow: isNarrow),
+            skillIndicator("Firebase", 0.88, Colors.purple, 88, isNarrow: isNarrow),
+            skillIndicator("API Integration", 0.9, Colors.pinkAccent, 90, isNarrow: isNarrow),
+            skillIndicator("Payment Integration", 0.85, Colors.blueAccent, 85, isNarrow: isNarrow),
           ],
         ),
       ],
@@ -311,13 +308,15 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
     double width, {
     bool expanded = false,
     bool ui = false,
+    bool isNarrow = false,
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           title,
-          style: headingTextStyle.copyWith(color: appWhiteColor, fontSize: 16),
+          style:
+              isNarrow == true ? headingTextStyle.copyWith(color: appWhiteColor, fontSize: 10) : headingTextStyle.copyWith(color: appWhiteColor, fontSize: 16),
         ),
         SizedBox(
           width: expanded == true
@@ -326,27 +325,37 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
                   ? 40
                   : 15,
         ),
-        skillSetContainer(containerBgColor, containerOverlayColor, width),
+        skillSetContainer(
+          containerBgColor,
+          containerOverlayColor,
+          width,
+          isNarrow: isNarrow,
+        ),
         SizedBox(
           width: 25,
         ),
-        skillSetBubble(number, containerOverlayColor),
+        skillSetBubble(number, containerOverlayColor, isNarrow: isNarrow),
       ],
     );
   }
 
-  Widget skillSetContainer(Color bgColor, overlayColor, double width) {
+  Widget skillSetContainer(
+    Color bgColor,
+    overlayColor,
+    double width, {
+    bool isNarrow = false,
+  }) {
     return Stack(
       children: [
         Container(
-          height: 7,
-          width: 300,
+          height: isNarrow == true ? 4 : 7,
+          width: isNarrow == true ? 130 : 300,
           decoration: BoxDecoration(
             color: bgColor,
           ),
         ),
         Container(
-          height: 7,
+          height: isNarrow == true ? 4 : 7,
           width: width,
           decoration: BoxDecoration(
             color: overlayColor,
@@ -356,7 +365,11 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
     );
   }
 
-  Widget skillSetBubble(String text, Color bgColor) {
+  Widget skillSetBubble(
+    String text,
+    Color bgColor, {
+    bool isNarrow = false,
+  }) {
     return Center(
       child: SpeechBubble(
         text: text,
@@ -366,9 +379,9 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
     );
   }
 
-  Widget skillIndicator(String skill, double percentage, Color color, int value) {
+  Widget skillIndicator(String skill, double percentage, Color color, int value, {bool isNarrow = false}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 23.0),
+      padding: isNarrow == true ? const EdgeInsets.symmetric(horizontal: 8.0) : const EdgeInsets.symmetric(horizontal: 23.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -376,17 +389,13 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
             animation: _controller,
             builder: (context, child) {
               return CircularPercentIndicator(
-                radius: 50.0,
-                lineWidth: 8.0,
+                radius: isNarrow == true ? 20.0 : 50.0,
+                lineWidth: isNarrow == true ? 2.0 : 8.0,
                 animation: true,
                 percent: percentage * _controller.value,
                 center: Text(
                   "${(value * _controller.value).toInt()}",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
-                    color: Colors.white,
-                  ),
+                  style: isNarrow == true ? headingTextStyle.copyWith(color: appWhiteColor, fontSize: 10) : headingTextStyle.copyWith(color: appWhiteColor),
                 ),
                 circularStrokeCap: CircularStrokeCap.square,
                 progressColor: color,
@@ -397,7 +406,7 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
           SizedBox(height: 10),
           Text(
             skill,
-            style: TextStyle(color: Colors.white, fontSize: 14.0),
+            style: TextStyle(color: Colors.white, fontSize: isNarrow == true ? 8.0 : 14.0),
           ),
         ],
       ),

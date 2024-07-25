@@ -5,11 +5,8 @@ import 'package:flutter/material.dart';
 import '../consts/constants.dart';
 import '../utils/colors.dart';
 import '../utils/textStyle.dart';
-import '../widgets/clientsPortion.dart';
 import '../widgets/imageContainer.dart';
-import '../widgets/productsPortion.dart';
 import '../widgets/services.dart';
-import '../widgets/technologyPage.dart';
 import '../widgets/workSection.dart';
 import 'aboutPage.dart';
 
@@ -34,6 +31,45 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey _journeyKey = GlobalKey();
   final GlobalKey _contactKey = GlobalKey();
 
+  List<GlobalKey> get sectionKeys => [
+    _homeKey,
+    _aboutKey,
+    _servicesKey,
+    _worksKey,
+    _journeyKey,
+    _contactKey,
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    for (int i = 0; i < sectionKeys.length; i++) {
+      final context = sectionKeys[i].currentContext;
+      if (context != null) {
+        final box = context.findRenderObject() as RenderBox;
+        final position = box.localToGlobal(Offset.zero).dy;
+
+        if (position <= 0 && position + box.size.height > 0) {
+          setState(() {
+            selectedIndex = i;
+          });
+          break;
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,20 +83,14 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           if (MediaQuery.of(context).size.width > 600) ...[
-            _buildTextButton(0, 'Home', _homeKey),
-            _buildTextButton(1, 'About', _aboutKey),
-            _buildTextButton(2, 'Services', _servicesKey),
-            _buildTextButton(3, 'Works', _worksKey),
-            _buildTextButton(4, 'Journey', _journeyKey),
-            Padding(
-              padding: const EdgeInsets.only(right: 30.0),
-              child: _buildTextButton(5, 'Contact', _contactKey),
-            ),
+            for (int i = 0; i < sectionKeys.length; i++)
+              _buildTextButton(i, ['Home', 'About', 'Services', 'Works', 'Journey', 'Contact'][i], sectionKeys[i]),
           ] else ...[
             Builder(
               builder: (context) => IconButton(
                 icon: Icon(Icons.menu, color: appWhiteColor),
                 onPressed: () {
+                  // Your menu action here
                 },
               ),
             ),
@@ -87,22 +117,8 @@ class _HomePageState extends State<HomePage> {
         children: [
           Container(key: _homeKey, child: ImageAssetContainer(image: 'assets/Ubaid (1).png', height: 650)),
           Container(key: _aboutKey, child: AboutPage()),
-          // Container(key: _aboutKey, child: ClientsPortion(color: deepWhiteColor, text: "Clients", image: dummyImages)),
           Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "My Services", servicesData: dummyServiceData)),
           Container(key: _worksKey, child: PortfolioPage()),
-          // Container(
-          //   key: _journeyKey,
-          //   child: Center(
-          //     child: Padding(
-          //       padding: const EdgeInsets.symmetric(vertical: 20.0),
-          //       child: Text(
-          //         "Products",
-          //         style: headingTextStyle,
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // ProductsPortion(),
         ],
       ),
     );
@@ -116,22 +132,8 @@ class _HomePageState extends State<HomePage> {
         children: [
           Container(key: _homeKey, child: ImageAssetContainer(image: 'assets/bg2.jpg', height: 300)),
           Container(key: _aboutKey, child: AboutPage()),
-          // Container(key: _aboutKey, child: ClientsPortion(color: deepWhiteColor, text: "Clients", image: dummyImages)),
           Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "Services", servicesData: dummyServiceData)),
-          Container(key: _worksKey, child: PortfolioPage(isNarrow: true,)),
-          // Container(
-          //   key: _journeyKey,
-          //   child: Center(
-          //     child: Padding(
-          //       padding: const EdgeInsets.symmetric(vertical: 20.0),
-          //       child: Text(
-          //         "Products",
-          //         style: headingTextStyle,
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // ProductsPortion(),
+          Container(key: _worksKey, child: PortfolioPage(isNarrow: true)),
         ],
       ),
     );
@@ -168,8 +170,8 @@ class _HomePageState extends State<HomePage> {
                 color: isSelected
                     ? selectedColor
                     : isHovered
-                        ? hoverColor
-                        : appWhiteColor,
+                    ? hoverColor
+                    : appWhiteColor,
               ),
             ),
             if (isSelected || isHovered)

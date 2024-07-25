@@ -38,13 +38,13 @@ class _AboutPageState extends State<AboutPage> {
           "Unleash Your Creativity",
           "A Flutter Developer based in Pakistan,\nwith 2.5 Years of Experience",
           "I have 2.5 years of experience in Flutter Development. As a mid-level Flutter developer, I bring\nextensive experience in building and deploying robust, performant mobile applications for both\nAndroid, iOS, windows, linux and macos platforms. I have a strong background in Dart \nprogramming language and I am well-versed in Flutter's widgets, animations, and state management \ntechniques. I have also developed proficiency in integrating third-party APIs and services, including \nFirebase, FreshChat, Tamara Payment method, Hyper Pay payment method, Insider, BugFender Firebase \nAnalytics, and RESTful APIs. Additionally, I am adept at implementing and customizing UI designs \nusing Flutter's Material Design and Cupertino widgets, and I am skilled in version control using Git and \ncollaborative development using agile methodologies. With my ability to write clean and maintainable code \nand my dedication to stay up-to-date with the latest trends and best practices in mobile app development,\n I am confident in my ability to contribute to any Flutter project.",
-          "assets/mobileTemplate.jpg",
+          "assets/aboutme.png",
           () {},
           darkGreenColor,
           appWhiteColor,
           600,
           600,
-          370),
+          500),
     );
   }
 
@@ -80,6 +80,8 @@ class _AboutPageState extends State<AboutPage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Container(
+                  height: imageHeight,
+                  width: imageWidth,
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -94,7 +96,7 @@ class _AboutPageState extends State<AboutPage> {
                     height: imageHeight,
                     width: imageWidth,
                     imageUrl,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                   ),
                 ),
                 SizedBox(

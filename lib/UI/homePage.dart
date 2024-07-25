@@ -6,6 +6,7 @@ import '../consts/constants.dart';
 import '../utils/colors.dart';
 import '../utils/textStyle.dart';
 import '../widgets/imageContainer.dart';
+import '../widgets/journeySection.dart';
 import '../widgets/services.dart';
 import '../widgets/workSection.dart';
 import 'aboutPage.dart';
@@ -131,6 +132,7 @@ class _HomePageState extends State<HomePage> {
           Container(key: _aboutKey, child: AboutPage()),
           Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "My Services", servicesData: dummyServiceData)),
           Container(key: _worksKey, child: PortfolioPage()),
+          Container(key: _journeyKey, child: ExperienceJourney()),
         ],
       ),
     );

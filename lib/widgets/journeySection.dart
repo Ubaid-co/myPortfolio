@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/utils/colors.dart';
@@ -118,7 +118,7 @@ class ExperienceTile extends StatelessWidget {
   final IconData icon;
   final Color iconColor;
 
-  ExperienceTile({required this.date, required this.title, required this.description, required this.icon, required this.iconColor});
+  ExperienceTile({super.key, required this.date, required this.title, required this.description, required this.icon, required this.iconColor});
 
   @override
   Widget build(BuildContext context) {

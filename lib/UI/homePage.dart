@@ -35,13 +35,13 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey _contactKey = GlobalKey();
 
   List<GlobalKey> get sectionKeys => [
-    _homeKey,
-    _aboutKey,
-    _servicesKey,
-    _worksKey,
-    _journeyKey,
-    _contactKey,
-  ];
+        _homeKey,
+        _aboutKey,
+        _servicesKey,
+        _worksKey,
+        _journeyKey,
+        _contactKey,
+      ];
 
   @override
   void initState() {
@@ -96,8 +96,7 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           if (MediaQuery.of(context).size.width > 600) ...[
-            for (int i = 0; i < sectionKeys.length; i++)
-              _buildTextButton(i, ['Home', 'About', 'Services', 'Works', 'Journey', 'Contact'][i], sectionKeys[i]),
+            for (int i = 0; i < sectionKeys.length; i++) _buildTextButton(i, ['Home', 'About', 'Services', 'Works', 'Journey', 'Contact'][i], sectionKeys[i]),
           ] else ...[
             Builder(
               builder: (context) => IconButton(
@@ -128,7 +127,15 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(key: _homeKey, child: ImageAssetContainer(image: 'assets/Ubaid (1).png', height: 650)),
+          Container(
+              key: _homeKey,
+              child: ImageAssetContainer(
+                image: 'assets/Ubaid (1).png',
+                height: 650,
+                portfolioOnPressed: () {
+                  _scrollToSection(_worksKey);
+                },
+              )),
           Container(key: _aboutKey, child: AboutPage()),
           Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "My Services", servicesData: dummyServiceData)),
           Container(key: _worksKey, child: PortfolioPage()),
@@ -144,7 +151,15 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(key: _homeKey, child: ImageAssetContainer(image: 'assets/bg2.jpg', height: 300)),
+          Container(
+              key: _homeKey,
+              child: ImageAssetContainer(
+                image: 'assets/bg2.jpg',
+                height: 300,
+                portfolioOnPressed: () {
+                  _scrollToSection(_worksKey);
+                },
+              )),
           Container(key: _aboutKey, child: AboutPage()),
           Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "Services", servicesData: dummyServiceData)),
           Container(key: _worksKey, child: PortfolioPage(isNarrow: true)),
@@ -184,8 +199,8 @@ class _HomePageState extends State<HomePage> {
                 color: isSelected
                     ? selectedColor
                     : isHovered
-                    ? hoverColor
-                    : appWhiteColor,
+                        ? hoverColor
+                        : appWhiteColor,
               ),
             ),
             if (isSelected || isHovered)
@@ -212,4 +227,3 @@ class _HomePageState extends State<HomePage> {
     }
   }
 }
-

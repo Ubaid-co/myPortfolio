@@ -15,3 +15,4 @@ const lightGreenColor = Color(0xff19232b);
 const pinkShade = Color(0xffff27be);
 const blueShade = Color(0xff2fd3ff);
 const orangeShade = Color(0xffff761b);
+const landingImageColor = Color(0xff001111);

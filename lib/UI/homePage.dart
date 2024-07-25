@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: appWhiteColor,
       appBar: AppBar(
-        backgroundColor: deepBlackColor,
+        backgroundColor: landingImageColor,
         centerTitle: false,
         title: Text(
           'Tech Tree',
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Container(key: _homeKey, child: ImageAssetContainer(image: 'assets/bg2.jpg', height: 650)),
+          Container(key: _homeKey, child: ImageAssetContainer(image: 'assets/Ubaid (1).png', height: 650)),
           Container(key: _aboutKey, child: AboutPage()),
           // Container(key: _aboutKey, child: ClientsPortion(color: deepWhiteColor, text: "Clients", image: dummyImages)),
           Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "My Services", servicesData: dummyServiceData)),

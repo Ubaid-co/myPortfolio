@@ -10,6 +10,8 @@ import '../widgets/services.dart';
 import '../widgets/workSection.dart';
 import 'aboutPage.dart';
 
+import 'package:flutter/scheduler.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -43,30 +45,40 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(_onScroll);
+    _scrollController.addListener(_onScrollThrottled);
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(_onScroll);
+    _scrollController.removeListener(_onScrollThrottled);
     _scrollController.dispose();
     super.dispose();
   }
 
+  void _onScrollThrottled() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _onScroll();
+    });
+  }
+
   void _onScroll() {
+    int newIndex = selectedIndex;
     for (int i = 0; i < sectionKeys.length; i++) {
       final context = sectionKeys[i].currentContext;
       if (context != null) {
         final box = context.findRenderObject() as RenderBox;
         final position = box.localToGlobal(Offset.zero).dy;
 
-        if (position <= 0 && position + box.size.height > 0) {
-          setState(() {
-            selectedIndex = i;
-          });
+        if (position <= 100 && position + box.size.height > 100) {
+          newIndex = i;
           break;
         }
       }
+    }
+    if (newIndex != selectedIndex) {
+      setState(() {
+        selectedIndex = newIndex;
+      });
     }
   }
 
@@ -198,3 +210,4 @@ class _HomePageState extends State<HomePage> {
     }
   }
 }
+

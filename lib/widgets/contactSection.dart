@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/colors.dart';
 
@@ -62,29 +63,34 @@ class ContactSection extends StatelessWidget {
         icon: Icons.phone,
         label: 'Whatsapp At',
         info: '+92 - 314 - 6506512',
+        url: 'whatsapp://send?phone=+923146506512',
       ),
       ContactItem(
         icon: Icons.email,
         label: 'Email At',
         info: 'baidakmal20@gmail.com',
+        url: 'mailto:baidakmal20@gmail.com',
       ),
       ContactItem(
         icon: null,
         faIcon: FontAwesomeIcons.facebook,
         label: 'Facebook',
         info: 'ubaidullah.akmal?mibextid=ZbWKwL',
+        url: 'https://facebook.com/ubaidullah.akmal?mibextid=ZbWKwL',
       ),
       ContactItem(
         icon: null,
         faIcon: FontAwesomeIcons.instagram,
         label: 'Instagram',
         info: 'ubaidakmal2008',
+        url: 'https://instagram.com/ubaidakmal2008',
       ),
       ContactItem(
         icon: null,
         faIcon: FontAwesomeIcons.linkedin,
         label: 'LinkedIn',
         info: 'ubaid-ullah-22921b227?',
+        url: 'https://linkedin.com/in/ubaid-ullah-22921b227?',
       ),
     ];
 
@@ -102,6 +108,7 @@ class ContactItem extends StatelessWidget {
   final IconData? faIcon;
   final String label;
   final String info;
+  final String url;
 
   const ContactItem({
     super.key,
@@ -109,30 +116,39 @@ class ContactItem extends StatelessWidget {
     this.faIcon,
     required this.label,
     required this.info,
+    required this.url
   });
-
+  Future<void> _launchURL() async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri)) {
+      throw 'Could not launch $url';
+    }
+  }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey[850],
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Column(
-        children: [
-          icon == null ? FaIcon(faIcon, color: Colors.orange, size: 32) : Icon(icon, color: Colors.orange, size: 32),
-          SizedBox(height: 8),
-          Text(
-            label,
-            style: TextStyle(color: Colors.white, fontSize: 16),
-          ),
-          SizedBox(height: 4),
-          Text(
-            info,
-            style: TextStyle(color: Colors.white, fontSize: 14),
-          ),
-        ],
+    return GestureDetector(
+      onTap: _launchURL,
+      child: Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: darkGreenColor,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          children: [
+            icon == null ? FaIcon(faIcon, color: Colors.orange, size: 32) : Icon(icon, color: Colors.orange, size: 32),
+            SizedBox(height: 8),
+            Text(
+              label,
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+            SizedBox(height: 4),
+            Text(
+              info,
+              style: TextStyle(color: Colors.white, fontSize: 14),
+            ),
+          ],
+        ),
       ),
     );
   }

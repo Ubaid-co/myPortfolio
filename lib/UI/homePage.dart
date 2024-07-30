@@ -136,6 +136,9 @@ class _HomePageState extends State<HomePage> {
                 portfolioOnPressed: () {
                   _scrollToSection(_worksKey);
                 },
+                hireMeOnPressed: () {
+                  _scrollToSection(_contactKey);
+                },
               )),
           Container(key: _aboutKey, child: AboutPage()),
           Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "My Services", servicesData: dummyServiceData)),
@@ -161,6 +164,9 @@ class _HomePageState extends State<HomePage> {
                 height: 200,
                 portfolioOnPressed: () {
                   _scrollToSection(_worksKey);
+                },
+                hireMeOnPressed: () {
+                  _scrollToSection(_contactKey);
                 },
               )),
           Container(key: _aboutKey, child: AboutPage()),

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/widgets/skillsBubble.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/colors.dart';
 import '../utils/textStyle.dart';
@@ -19,7 +20,12 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
   late AnimationController _controller;
   final Color hoverColor = orangeColor;
   bool isHovered = false;
-
+  Future<void> _launchURL() async {
+    const url = 'https://drive.google.com/file/d/1f8tWey47okgLsseQzo-Sw3asssDzRMW_/view?usp=sharing'; // Replace with your CV URL
+    if (!await launch(url)) {
+      throw 'Could not launch $url';
+    }
+  }
   @override
   void initState() {
     super.initState();
@@ -59,7 +65,9 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
           "Every Day is a New Challenge",
           "With a year of experience as a Flutter developer, I specialize in creating cross-platform applications that are both visually stunning and highly functional. My expertise spans Android, iOS, macOS, desktop, and web development, allowing me to deliver cohesive and seamless user experiences across all major platforms. I am passionate about leveraging Flutter's capabilities to build innovative solutions that meet the diverse needs of users, ensuring that every project I undertake stands out for its quality and performance.",
           "assets/mobileTemplate.jpg",
-          () {},
+          () {
+            _launchURL();
+          },
           darkGreenColor,
           appWhiteColor,
           600,
@@ -78,7 +86,9 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
           "Every Day is a New Challenge",
           "With a year of experience as a Flutter developer, I specialize in creating cross-platform applications that are both visually stunning and highly functional. My expertise spans Android, iOS, macOS, desktop, and web development, allowing me to deliver cohesive and seamless user experiences across all major platforms. I am passionate about leveraging Flutter's capabilities to build innovative solutions that meet the diverse needs of users, ensuring that every project I undertake stands out for its quality and performance.",
           "assets/mobileTemplate.jpg",
-          () {},
+          () {
+            _launchURL();
+          },
           darkGreenColor,
           appWhiteColor,
           600,

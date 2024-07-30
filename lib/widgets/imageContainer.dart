@@ -35,6 +35,7 @@ class ImageAssetContainer extends StatefulWidget {
   final String image;
   final bool isMobileView;
   final Function() portfolioOnPressed;
+  final Function() hireMeOnPressed;
 
   const ImageAssetContainer({
     Key? key,
@@ -42,6 +43,7 @@ class ImageAssetContainer extends StatefulWidget {
     this.width = double.infinity,
     required this.image,
     required this.portfolioOnPressed,
+    required this.hireMeOnPressed,
     this.isMobileView = false,
   }) : super(key: key);
 
@@ -105,7 +107,7 @@ class _ImageAssetContainerState extends State<ImageAssetContainer> {
                       text: "Hire Me",
                       textColor: Colors.white,
                       // Update this to your textWhiteColor
-                      onPressed: () {},
+                      onPressed: widget.hireMeOnPressed,
                       backgroundColor: isHovered ? Colors.orange : darkGreenColor,
                       // Update this to your darkGreenColor or buttonColor
                       width: buttonWidth,

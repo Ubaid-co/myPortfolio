@@ -154,8 +154,9 @@ class _HomePageState extends State<HomePage> {
           Container(
               key: _homeKey,
               child: ImageAssetContainer(
-                image: 'assets/bg2.jpg',
-                height: 300,
+                image: 'assets/Ubaid (1).png',
+                isMobileView: true,
+                height: 200,
                 portfolioOnPressed: () {
                   _scrollToSection(_worksKey);
                 },
@@ -163,6 +164,7 @@ class _HomePageState extends State<HomePage> {
           Container(key: _aboutKey, child: AboutPage()),
           Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "Services", servicesData: dummyServiceData)),
           Container(key: _worksKey, child: PortfolioPage(isNarrow: true)),
+          Container(key: _journeyKey, child: ExperienceJourney()),
         ],
       ),
     );

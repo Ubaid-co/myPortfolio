@@ -1,13 +1,70 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'dart:convert';
+
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/utils/colors.dart';
-
+import 'package:http/http.dart' as http;
 import '../utils/textStyle.dart';
 import 'buttons.dart';
+import 'package:emailjs/emailjs.dart' as emailjs;
 
-class MessageMe extends StatelessWidget {
+class MessageMe extends StatefulWidget {
   const MessageMe({super.key});
+
+  @override
+  State<MessageMe> createState() => _MessageMeState();
+}
+
+class _MessageMeState extends State<MessageMe> {
+  bool isLoading = false;
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController subjectController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController messageController = TextEditingController();
+
+  Future<void> sendEmail() async {
+    final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
+    const serviceId = 'service_9le52tj';
+    const templateId = 'template_6e8ysz4';
+    const userId = 'QzslCt13bKp5Yo8Mv';
+    final response = await http.post(url,
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(
+          {
+            'service_id': serviceId,
+            'template_id': templateId,
+            'user_id': userId,
+            'template_params': {
+              'user_name': nameController.text,
+              'user_email': emailController.text,
+              'user_subject': subjectController.text,
+              'user_message': "Phone Number : - \n${phoneController.text}\n${messageController.text}",
+            }
+          },
+        ));
+
+    if (response.statusCode == 200 && mounted) {
+      setState(() {
+        isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Message sent successfully!')),
+      );
+    } else {
+      setState(() {
+        isLoading = false;
+      });
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to send message. Please try again.')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,22 +73,25 @@ class MessageMe extends StatelessWidget {
         bool isMobile = constraints.maxWidth < 600;
         bool isTablet = constraints.maxWidth >= 600 && constraints.maxWidth < 1024;
 
-        return Container(
-          color: darkGreenColor,
-          padding: EdgeInsets.symmetric(vertical: 40, horizontal: isMobile ? 16 : (isTablet ? 32 : 250)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              if (isMobile)
-                Column(
-                  children: _buildContactForm(isMobile),
-                )
-              else
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: _buildContactForm(isMobile),
-                ),
-            ],
+        return Form(
+          key: _formKey,
+          child: Container(
+            color: darkGreenColor,
+            padding: EdgeInsets.symmetric(vertical: 40, horizontal: isMobile ? 16 : (isTablet ? 32 : 250)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (isMobile)
+                  Column(
+                    children: _buildContactForm(isMobile),
+                  )
+                else
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: _buildContactForm(isMobile),
+                  ),
+              ],
+            ),
           ),
         );
       },
@@ -118,7 +178,7 @@ class MessageMe extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Text("Any Question?", style: headingTextStyle.copyWith(color: textWhiteColor, fontSize: isMobile ? 16: 20)),
+                  Text("Any Question?", style: headingTextStyle.copyWith(color: textWhiteColor, fontSize: isMobile ? 16 : 20)),
                 ],
               ),
               SizedBox(height: 8),
@@ -126,7 +186,7 @@ class MessageMe extends StatelessWidget {
                 'Drop Me A Line',
                 style: TextStyle(
                   color: orangeColor,
-                  fontSize: isMobile ? 36: 22,
+                  fontSize: isMobile ? 36 : 22,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -135,6 +195,7 @@ class MessageMe extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      controller: nameController,
                       decoration: InputDecoration(
                         labelText: 'Name',
                         labelStyle: TextStyle(color: Colors.white),
@@ -146,11 +207,18 @@ class MessageMe extends StatelessWidget {
                         ),
                       ),
                       style: TextStyle(color: Colors.white),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your name';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   SizedBox(width: 16),
                   Expanded(
                     child: TextFormField(
+                      controller: emailController,
                       decoration: InputDecoration(
                         labelText: 'Email',
                         labelStyle: TextStyle(color: Colors.white),
@@ -162,6 +230,14 @@ class MessageMe extends StatelessWidget {
                         ),
                       ),
                       style: TextStyle(color: Colors.white),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your email';
+                        } else if (!EmailValidator.validate(value)) {
+                          return 'Please enter a valid email';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                 ],
@@ -171,6 +247,7 @@ class MessageMe extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      controller: subjectController,
                       decoration: InputDecoration(
                         labelText: 'Subject',
                         labelStyle: TextStyle(color: Colors.white),
@@ -182,11 +259,18 @@ class MessageMe extends StatelessWidget {
                         ),
                       ),
                       style: TextStyle(color: Colors.white),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter the subject';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   SizedBox(width: 16),
                   Expanded(
                     child: TextFormField(
+                      controller: phoneController,
                       decoration: InputDecoration(
                         labelText: 'Phone',
                         labelStyle: TextStyle(color: Colors.white),
@@ -198,12 +282,19 @@ class MessageMe extends StatelessWidget {
                         ),
                       ),
                       style: TextStyle(color: Colors.white),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter your phone number';
+                        }
+                        return null;
+                      },
                     ),
                   ),
                 ],
               ),
               SizedBox(height: 20),
               TextFormField(
+                controller: messageController,
                 decoration: InputDecoration(
                   labelText: 'Message',
                   labelStyle: TextStyle(color: Colors.white),
@@ -216,18 +307,39 @@ class MessageMe extends StatelessWidget {
                 ),
                 style: TextStyle(color: Colors.white),
                 maxLines: 3,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your message';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 20),
-              CustomElevatedButton(
-                text: "Send Message",
-                textColor: textWhiteColor,
-                onPressed: (){},
-                backgroundColor: orangeColor,
-                width: 40,
-                height: 40,
-                isPadding: false,
-                hover: false,
-              )
+              isLoading
+                  ? CircularProgressIndicator(color: textWhiteColor,)
+                  : CustomElevatedButton(
+                      text: "Send Message",
+                      textColor: textWhiteColor,
+                      onPressed: () {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        if (_formKey.currentState!.validate()) {
+                          sendEmail().then((_) {
+                            nameController.clear();
+                            emailController.clear();
+                            subjectController.clear();
+                            phoneController.clear();
+                            messageController.clear();
+                          });
+                        }
+                      },
+                      backgroundColor: orangeColor,
+                      width: 40,
+                      height: 40,
+                      isPadding: false,
+                      hover: false,
+                    )
             ],
           ),
         ),

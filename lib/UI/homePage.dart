@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../consts/constants.dart';
 import '../utils/colors.dart';
 import '../utils/textStyle.dart';
+import '../widgets/contactSection.dart';
 import '../widgets/imageContainer.dart';
 import '../widgets/journeySection.dart';
 import '../widgets/services.dart';
@@ -140,6 +141,7 @@ class _HomePageState extends State<HomePage> {
           Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "My Services", servicesData: dummyServiceData)),
           Container(key: _worksKey, child: PortfolioPage()),
           Container(key: _journeyKey, child: ExperienceJourney()),
+          Container(key: _contactKey, child: ContactSection()),
         ],
       ),
     );
@@ -165,6 +167,7 @@ class _HomePageState extends State<HomePage> {
           Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "Services", servicesData: dummyServiceData)),
           Container(key: _worksKey, child: PortfolioPage(isNarrow: true)),
           Container(key: _journeyKey, child: ExperienceJourney()),
+          Container(key: _contactKey, child: ContactSection()),
         ],
       ),
     );

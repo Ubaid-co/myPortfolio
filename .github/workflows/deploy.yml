@@ -21,8 +21,17 @@ jobs:
       - name: Verify Flutter installation
         run: flutter --version
 
+      - name: Print environment variables
+        run: env
+
+      - name: List files in current directory
+        run: ls -la
+
       - name: Install dependencies
         run: flutter pub get
+
+      - name: Run Flutter Doctor
+        run: flutter doctor
 
       - name: Build Flutter web
         run: flutter build web --release

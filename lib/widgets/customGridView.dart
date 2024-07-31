@@ -54,9 +54,9 @@ class _CustomGridState extends State<CustomGrid> {
                                 customContainer(
                                   200,
                                   Colors.blue,
-                                  "assets/mobileTemplate.jpg",
+                                  "assets/innvolv.jpeg",
                                 ),
-                                if (isHovered1) hoverWidget(190),
+                                if (isHovered1) hoverWidget(190, "InnVolv"),
                               ])),
                         ),
                         Expanded(
@@ -75,9 +75,9 @@ class _CustomGridState extends State<CustomGrid> {
                                 customContainer(
                                   200,
                                   Colors.green,
-                                  "assets/mobileTemplate.jpg",
+                                  "assets/musicPlayer.png",
                                 ),
-                                if (isHovered2) hoverWidget(190),
+                                if (isHovered2) hoverWidget(190, "Music App"),
                               ])),
                         ),
                       ],
@@ -100,9 +100,9 @@ class _CustomGridState extends State<CustomGrid> {
                                 customContainer(
                                   200,
                                   Colors.blue,
-                                  "assets/mobileTemplate.jpg",
+                                  "assets/easyScan.png",
                                 ),
-                                if (isHovered3) hoverWidget(190),
+                                if (isHovered3) hoverWidget(190, "Easy Scanner"),
                               ])),
                         ),
                         Expanded(
@@ -121,9 +121,9 @@ class _CustomGridState extends State<CustomGrid> {
                                 customContainer(
                                   200,
                                   Colors.green,
-                                  "assets/mobileTemplate.jpg",
+                                  "assets/scanner.png",
                                 ),
-                                if (isHovered4) hoverWidget(190),
+                                if (isHovered4) hoverWidget(190, "Qr Scanner"),
                               ])),
                         ),
                       ],
@@ -148,39 +148,38 @@ class _CustomGridState extends State<CustomGrid> {
                       customContainer(
                         410,
                         Colors.red,
-                        "assets/mobileTemplate.jpg",
+                        "assets/johrh.png",
                       ),
-                      if (isHovered5) hoverWidget(400),
+                      if (isHovered5) hoverWidget(400, "Johrh FrontStore"),
                     ])),
               ),
             ],
           ),
           Row(
             children: [
+              // Expanded(
+              //   flex: 3,
+              //   child: MouseRegion(
+              //       onEnter: (_) {
+              //         setState(() {
+              //           isHovered6 = true;
+              //         });
+              //       },
+              //       onExit: (_) {
+              //         setState(() {
+              //           isHovered6 = false;
+              //         });
+              //       },
+              //       child: Stack(children: [
+              //         customContainer(
+              //           200,
+              //           Colors.orange,
+              //           "assets/mobileTemplate.jpg",
+              //         ),
+              //         if (isHovered6) hoverWidget(190),
+              //       ])),
+              // ),
               Expanded(
-                flex: 3,
-                child: MouseRegion(
-                    onEnter: (_) {
-                      setState(() {
-                        isHovered6 = true;
-                      });
-                    },
-                    onExit: (_) {
-                      setState(() {
-                        isHovered6 = false;
-                      });
-                    },
-                    child: Stack(children: [
-                      customContainer(
-                        200,
-                        Colors.orange,
-                        "assets/mobileTemplate.jpg",
-                      ),
-                      if (isHovered6) hoverWidget(190),
-                    ])),
-              ),
-              Expanded(
-                flex: 6,
                 child: MouseRegion(
                   onEnter: (_) {
                     setState(() {
@@ -197,9 +196,9 @@ class _CustomGridState extends State<CustomGrid> {
                       customContainer(
                         200,
                         Colors.purple,
-                        "assets/mobileTemplate.jpg",
+                        "assets/skoop.jpeg",
                       ),
-                      if (isHovered7) hoverWidget(190),
+                      if (isHovered7) hoverWidget(190, "Skoop Signage"),
                     ],
                   ),
                 ),
@@ -224,7 +223,7 @@ class _CustomGridState extends State<CustomGrid> {
     );
   }
 
-  Widget hoverWidget(double height) {
+  Widget hoverWidget(double height, String appName) {
     return Positioned.fill(
       child: Container(
         margin: EdgeInsets.all(10),
@@ -236,7 +235,7 @@ class _CustomGridState extends State<CustomGrid> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "Hovered",
+                appName,
                 style: widget.isNarrow == true ? headingTextStyle.copyWith(color: appWhiteColor, fontSize: 14) : TextStyle(color: Colors.white, fontSize: 24),
               ),
               SizedBox(

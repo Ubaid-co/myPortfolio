@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         ],
       ),
       debugShowCheckedModeBanner: false,
-      title: 'TechTree',
+      title: 'DevUbaid',
       initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),

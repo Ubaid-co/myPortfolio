@@ -91,10 +91,9 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: landingImageColor,
         centerTitle: false,
-        title: Text(
-          'Tech Tree',
-          style: TextStyle(color: appWhiteColor),
-        ),
+        title: GestureDetector(
+            onTap: (){_scrollToSection(_homeKey);},
+            child: Image.asset("assets/UD.png",width: 40,height: 40, color: appWhiteColor,)),
         actions: [
           if (MediaQuery.of(context).size.width > 600) ...[
             for (int i = 0; i < sectionKeys.length; i++) _buildTextButton(i, ['Home', 'About', 'Services', 'Works', 'Journey', 'Contact'][i], sectionKeys[i]),

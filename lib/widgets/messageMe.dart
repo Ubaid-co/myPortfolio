@@ -107,11 +107,13 @@ class _MessageMeState extends State<MessageMe> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image.asset(
-              //   'assets/logo.png', // Use a dummy logo image path
-              //   height: 50,
-              // ),
-              SizedBox(height: 20),
+              Image.asset(
+                'assets/UD.png', // Use a dummy logo image path
+                height: isMobile ? 50 : 120,
+              ),
+              SizedBox(
+                height: 10,
+              ),
               Text(
                 'Flutter Developer',
                 style: TextStyle(
@@ -178,7 +180,7 @@ class _MessageMeState extends State<MessageMe> {
                   SizedBox(
                     width: 10,
                   ),
-                  Text("Any Question?", style: headingTextStyle.copyWith(color: textWhiteColor, fontSize: isMobile ? 16 : 20)),
+                  Text("Any Question?", style: headingTextStyle.copyWith(color: textWhiteColor, fontSize: isMobile ? 12 : 16)),
                 ],
               ),
               SizedBox(height: 8),
@@ -186,7 +188,7 @@ class _MessageMeState extends State<MessageMe> {
                 'Drop Me A Line',
                 style: TextStyle(
                   color: orangeColor,
-                  fontSize: isMobile ? 36 : 22,
+                  fontSize: isMobile ? 22 : 36,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -316,7 +318,9 @@ class _MessageMeState extends State<MessageMe> {
               ),
               SizedBox(height: 20),
               isLoading
-                  ? CircularProgressIndicator(color: textWhiteColor,)
+                  ? CircularProgressIndicator(
+                      color: textWhiteColor,
+                    )
                   : CustomElevatedButton(
                       text: "Send Message",
                       textColor: textWhiteColor,

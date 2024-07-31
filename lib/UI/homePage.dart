@@ -92,8 +92,15 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: landingImageColor,
         centerTitle: false,
         title: GestureDetector(
-            onTap: (){_scrollToSection(_homeKey);},
-            child: Image.asset("assets/UD.png",width: 40,height: 40, color: appWhiteColor,)),
+            onTap: () {
+              _scrollToSection(_homeKey);
+            },
+            child: Image.asset(
+              "assets/UD.png",
+              width: 40,
+              height: 40,
+              color: appWhiteColor,
+            )),
         actions: [
           if (MediaQuery.of(context).size.width > 600) ...[
             for (int i = 0; i < sectionKeys.length; i++) _buildTextButton(i, ['Home', 'About', 'Services', 'Works', 'Journey', 'Contact'][i], sectionKeys[i]),
@@ -140,7 +147,16 @@ class _HomePageState extends State<HomePage> {
                 },
               )),
           Container(key: _aboutKey, child: AboutPage()),
-          Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "My Services", servicesData: dummyServiceData)),
+          Container(
+              key: _servicesKey,
+              child: ServicesPortion(
+                color: lightGreenColor,
+                text: "My Services",
+                servicesData: dummyServiceData,
+                hireMeOnPressed: () {
+                  _scrollToSection(_contactKey);
+                },
+              )),
           Container(key: _worksKey, child: PortfolioPage()),
           Container(key: _journeyKey, child: ExperienceJourney()),
           Container(key: _contactKey, child: ContactSection()),
@@ -169,7 +185,16 @@ class _HomePageState extends State<HomePage> {
                 },
               )),
           Container(key: _aboutKey, child: AboutPage()),
-          Container(key: _servicesKey, child: ServicesPortion(color: lightGreenColor, text: "Services", servicesData: dummyServiceData)),
+          Container(
+              key: _servicesKey,
+              child: ServicesPortion(
+                color: lightGreenColor,
+                text: "Services",
+                servicesData: dummyServiceData,
+                hireMeOnPressed: () {
+                  _scrollToSection(_contactKey);
+                },
+              )),
           Container(key: _worksKey, child: PortfolioPage(isNarrow: true)),
           Container(key: _journeyKey, child: ExperienceJourney()),
           Container(key: _contactKey, child: ContactSection()),

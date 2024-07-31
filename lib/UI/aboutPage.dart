@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../utils/colors.dart';
 import '../utils/textStyle.dart';
@@ -16,6 +17,12 @@ class AboutPage extends StatefulWidget {
 class _AboutPageState extends State<AboutPage> {
   final Color hoverColor = orangeColor;
   bool isHovered = false;
+  Future<void> _launchURL() async {
+    const url = 'https://drive.google.com/file/d/1f8tWey47okgLsseQzo-Sw3asssDzRMW_/view?usp=sharing'; // Replace with your CV URL
+    if (!await launch(url)) {
+      throw 'Could not launch $url';
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -39,7 +46,9 @@ class _AboutPageState extends State<AboutPage> {
           "A Flutter Developer based in Pakistan,\nwith 2.5 Years of Experience",
           "I have 2.5 years of experience in Flutter Development. As a mid-level Flutter developer, I bring\nextensive experience in building and deploying robust, performant mobile applications for both\nAndroid, iOS, windows, linux and macos platforms. I have a strong background in Dart \nprogramming language and I am well-versed in Flutter's widgets, animations, and state management \ntechniques. I have also developed proficiency in integrating third-party APIs and services, including \nFirebase, FreshChat, Tamara Payment method, Hyper Pay payment method, Insider, BugFender Firebase \nAnalytics, and RESTful APIs. Additionally, I am adept at implementing and customizing UI designs \nusing Flutter's Material Design and Cupertino widgets, and I am skilled in version control using Git and \ncollaborative development using agile methodologies. With my ability to write clean and maintainable code \nand my dedication to stay up-to-date with the latest trends and best practices in mobile app development,\n I am confident in my ability to contribute to any Flutter project.",
           "assets/aboutme.png",
-          () {},
+          () {
+            _launchURL();
+          },
           darkGreenColor,
           appWhiteColor,
           600,
@@ -58,7 +67,9 @@ class _AboutPageState extends State<AboutPage> {
           "A Flutter Developer based in Pakistan,\nwith 2.5 Years of Experience",
           "I have 2.5 years of experience in Flutter Development. As a mid-level Flutter developer, I bring\nextensive experience in building and deploying robust, performant mobile applications for both\nAndroid, iOS, windows, linux and macos platforms. I have a strong background in Dart \nprogramming language and I am well-versed in Flutter's widgets, animations, and state management \ntechniques. I have also developed proficiency in integrating third-party APIs and services, including \nFirebase, FreshChat, Tamara Payment method, Hyper Pay payment method, Insider, BugFender Firebase \nAnalytics, and RESTful APIs. Additionally, I am adept at implementing and customizing UI designs \nusing Flutter's Material Design and Cupertino widgets, and I am skilled in version control using Git and \ncollaborative development using agile methodologies. With my ability to write clean and maintainable code \nand my dedication to stay up-to-date with the latest trends and best practices in mobile app development,\n I am confident in my ability to contribute to any Flutter project.",
           "assets/mobileTemplate.jpg",
-          () {},
+          () {
+            _launchURL();
+          },
           darkGreenColor,
           appWhiteColor,
           600,
@@ -257,7 +268,7 @@ class _AboutPageState extends State<AboutPage> {
                   ],
                 ),
                 SizedBox(
-                  width: 20,
+                  height: 10,
                 ),
                 Container(
                   decoration: BoxDecoration(

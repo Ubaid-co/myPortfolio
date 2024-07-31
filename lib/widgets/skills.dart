@@ -10,7 +10,8 @@ import '../utils/textStyle.dart';
 import '../widgets/buttons.dart';
 
 class SkillsPage extends StatefulWidget {
-  const SkillsPage({super.key});
+  final Function() hireMeOnPressed;
+  const SkillsPage({super.key, required this.hireMeOnPressed});
 
   @override
   State<SkillsPage> createState() => _SkillsPageState();
@@ -20,12 +21,7 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
   late AnimationController _controller;
   final Color hoverColor = orangeColor;
   bool isHovered = false;
-  Future<void> _launchURL() async {
-    const url = 'https://drive.google.com/file/d/1f8tWey47okgLsseQzo-Sw3asssDzRMW_/view?usp=sharing'; // Replace with your CV URL
-    if (!await launch(url)) {
-      throw 'Could not launch $url';
-    }
-  }
+
   @override
   void initState() {
     super.initState();
@@ -65,9 +61,7 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
           "Every Day is a New Challenge",
           "With a year of experience as a Flutter developer, I specialize in creating cross-platform applications that are both visually stunning and highly functional. My expertise spans Android, iOS, macOS, desktop, and web development, allowing me to deliver cohesive and seamless user experiences across all major platforms. I am passionate about leveraging Flutter's capabilities to build innovative solutions that meet the diverse needs of users, ensuring that every project I undertake stands out for its quality and performance.",
           "assets/mobileTemplate.jpg",
-          () {
-            _launchURL();
-          },
+          widget.hireMeOnPressed,
           darkGreenColor,
           appWhiteColor,
           600,
@@ -86,9 +80,7 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
           "Every Day is a New Challenge",
           "With a year of experience as a Flutter developer, I specialize in creating cross-platform applications that are both visually stunning and highly functional. My expertise spans Android, iOS, macOS, desktop, and web development, allowing me to deliver cohesive and seamless user experiences across all major platforms. I am passionate about leveraging Flutter's capabilities to build innovative solutions that meet the diverse needs of users, ensuring that every project I undertake stands out for its quality and performance.",
           "assets/mobileTemplate.jpg",
-          () {
-            _launchURL();
-          },
+          widget.hireMeOnPressed,
           darkGreenColor,
           appWhiteColor,
           600,
@@ -265,7 +257,7 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
                       height: 20,
                     ),
                     CustomElevatedButton(
-                      text: "Download CV",
+                      text: "Hire Me",
                       textColor: findButtonTextColor ?? textWhiteColor,
                       onPressed: onTap,
                       backgroundColor: isHovered == true ? orangeColor : darkGreenColor ?? buttonColor,

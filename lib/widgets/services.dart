@@ -13,6 +13,7 @@ class ServicesPortion extends StatefulWidget {
   final Color color;
   final String text;
   final List<ServicesData> servicesData;
+  final Function() hireMeOnPressed;
 
   const ServicesPortion({
     super.key,
@@ -21,6 +22,7 @@ class ServicesPortion extends StatefulWidget {
     required this.color,
     required this.text,
     required this.servicesData,
+    required this.hireMeOnPressed
   });
 
   @override
@@ -98,7 +100,7 @@ class _ServicesPortionState extends State<ServicesPortion> {
             ],
           ),
           SizedBox(height: 100,),
-          SkillsPage(),
+          SkillsPage(hireMeOnPressed: widget.hireMeOnPressed),
         ],
       ),
     );

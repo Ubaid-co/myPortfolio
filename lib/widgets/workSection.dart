@@ -9,9 +9,7 @@ import 'buttons.dart';
 import 'customGridView.dart';
 
 class PortfolioPage extends StatefulWidget {
-  final bool isNarrow;
-
-  const PortfolioPage({super.key, this.isNarrow = false});
+  const PortfolioPage({super.key});
 
   @override
   State<PortfolioPage> createState() => _PortfolioPageState();
@@ -26,147 +24,120 @@ class _PortfolioPageState extends State<PortfolioPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        padding: widget.isNarrow == true ? const EdgeInsets.symmetric(horizontal: 20) : const EdgeInsets.symmetric(horizontal: 270),
-        color: lightGreenColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Determine the size of the screen
+        bool isMobile = constraints.maxWidth < 600;
+        bool isTablet = constraints.maxWidth >= 600 && constraints.maxWidth < 1200;
+        bool isDesktop = constraints.maxWidth >= 1200;
+
+        return Center(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: isMobile ? 16 : isTablet ? 32 : 270),
+            color: lightGreenColor,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: widget.isNarrow == true ? 20 : 50,
-                    height: widget.isNarrow == true ? 1.5 : 3,
-                    decoration: BoxDecoration(
-                      color: appWhiteColor,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    width: widget.isNarrow == true ? 5 : 10,
-                    height: widget.isNarrow == true ? 0.5 : 2,
-                    decoration: BoxDecoration(
-                      color: appWhiteColor,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    width: widget.isNarrow == true ? 2.5 : 5,
-                    height: widget.isNarrow == true ? 2.5 : 5,
-                    decoration: BoxDecoration(color: orangeColor, shape: BoxShape.circle),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text("Portfolio", style: widget.isNarrow == true ? headingTextStyle.copyWith(color: appWhiteColor, fontSize: 14) : headingTextStyle.copyWith(color: appWhiteColor, fontSize: 24)),
-                ],
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              widget.isNarrow == false?  Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("My Creative Work", style:widget.isNarrow == true ? headingTextStyle.copyWith(color: appWhiteColor, fontSize: 20) : headingTextStyle.copyWith(color: orangeColor, fontSize: 36)),
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildTextButton(
-                        0,
-                        "All",
+                      Container(
+                        width: 50,
+                        height: 3,
+                        decoration: BoxDecoration(
+                          color: appWhiteColor,
+                        ),
                       ),
-                      _buildTextButton(
-                        1,
-                        "Android Apps",
+                      const SizedBox(width: 5),
+                      Container(
+                        width: 10,
+                        height: 2,
+                        decoration: BoxDecoration(
+                          color: appWhiteColor,
+                        ),
                       ),
-                      _buildTextButton(
-                        2,
-                        "IOS Apps",
+                      const SizedBox(width: 5),
+                      Container(
+                        width: 5,
+                        height: 5,
+                        decoration: BoxDecoration(color: orangeColor, shape: BoxShape.circle),
                       ),
-                      _buildTextButton(
-                        3,
-                        "Web Apps",
-                      ),
-                      _buildTextButton(
-                        4,
-                        "Desktop Apps",
+                      const SizedBox(width: 10),
+                      Text("Portfolio", style: headingTextStyle.copyWith(color: appWhiteColor, fontSize: 24)),
+                    ],
+                  ),
+                  const SizedBox(height: 40),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("My Creative Work", style: headingTextStyle.copyWith(color: orangeColor, fontSize: isMobile ? 24 : 36)),
+                      isMobile
+                          ? Expanded(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              _buildTextButton(0, "All"),
+                              _buildTextButton(1, "Android Apps"),
+                              _buildTextButton(2, "IOS Apps"),
+                              _buildTextButton(3, "Web Apps"),
+                              _buildTextButton(4, "Desktop Apps"),
+                            ],
+                          ),
+                        ),
+                      )
+                          :  Expanded(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              _buildTextButton(0, "All"),
+                              _buildTextButton(1, "Android Apps"),
+                              _buildTextButton(2, "IOS Apps"),
+                              _buildTextButton(3, "Web Apps"),
+                              _buildTextButton(4, "Desktop Apps"),
+                            ],
+                          ),
+                        ),
                       ),
                     ],
                   ),
-                ],
-              ):Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text("My Creative Work", style:widget.isNarrow == true ? headingTextStyle.copyWith(color: appWhiteColor, fontSize: 20) : headingTextStyle.copyWith(color: orangeColor, fontSize: 36)),
-                  SizedBox(height: 20,),
-                  Row(
-                    children: [
-                      _buildTextButton(
-                        0,
-                        "All",
+                  const SizedBox(height: 40),
+                  const CustomGrid(),
+                  const SizedBox(height: 30),
+                  Center(
+                    child: MouseRegion(
+                      onEnter: (_) {
+                        setState(() {
+                          isHovered = true;
+                        });
+                      },
+                      onExit: (_) {
+                        setState(() {
+                          isHovered = false;
+                        });
+                      },
+                      child: CustomElevatedButton(
+                        text: "View More",
+                        textColor: textWhiteColor,
+                        onPressed: () {},
+                        backgroundColor: isHovered == true ? orangeColor : darkGreenColor ?? buttonColor,
+                        width: 40,
+                        height: 40,
+                        isPadding: false,
+                        hover: true,
                       ),
-                      _buildTextButton(
-                        1,
-                        "Android Apps",
-                      ),
-                      _buildTextButton(
-                        2,
-                        "IOS Apps",
-                      ),
-                      _buildTextButton(
-                        3,
-                        "Web Apps",
-                      ),
-                      _buildTextButton(
-                        4,
-                        "Desktop Apps",
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
-              SizedBox(
-                height: 40,
-              ),
-              CustomGrid(isNarrow: widget.isNarrow,),
-              SizedBox(
-                height: 30,
-              ),
-              Center(
-                  child: MouseRegion(
-                onEnter: (_) {
-                  setState(() {
-                    isHovered = true;
-                  });
-                },
-                onExit: (_) {
-                  setState(() {
-                    isHovered = false;
-                  });
-                },
-                child: CustomElevatedButton(
-                  text: "View More",
-                  textColor: textWhiteColor,
-                  onPressed: () {},
-                  backgroundColor: isHovered == true ? orangeColor : darkGreenColor ?? buttonColor,
-                  width: 40,
-                  height: 40,
-                  isPadding: false,
-                  hover: true,
-                ),
-              )),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -201,16 +172,16 @@ class _PortfolioPageState extends State<PortfolioPage> {
                 color: isSelected
                     ? selectedColor
                     : isHovered
-                        ? hoverColor
-                        : appWhiteColor,
-                fontSize: widget.isNarrow == true ? 8 : 16,
+                    ? hoverColor
+                    : appWhiteColor,
+                fontSize: 16,
               ),
             ),
             if (isSelected || isHovered)
               Container(
                 margin: const EdgeInsets.only(top: 4.0),
-                height: widget.isNarrow == true ? 0.5:2.0,
-                width: isHovered ? widget.isNarrow == true ?4.0: 8.0 : 20,
+                height: 2.0,
+                width: isHovered ? 8.0 : 20,
                 color: selectedColor,
               ),
           ],
@@ -223,7 +194,7 @@ class _PortfolioPageState extends State<PortfolioPage> {
 class FilterButton extends StatelessWidget {
   final String label;
 
-  FilterButton({super.key, required this.label});
+  const FilterButton({super.key, required this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -242,7 +213,7 @@ class FilterButton extends StatelessWidget {
 class PortfolioItem extends StatelessWidget {
   final String imageUrl;
 
-  PortfolioItem({super.key, required this.imageUrl});
+  const PortfolioItem({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -259,3 +230,5 @@ class PortfolioItem extends StatelessWidget {
     );
   }
 }
+
+

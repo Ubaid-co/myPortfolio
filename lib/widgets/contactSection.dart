@@ -12,54 +12,60 @@ class ContactSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        LayoutBuilder(
-          builder: (context, constraints) {
-            bool isMobile = constraints.maxWidth < 600;
-            bool isTablet = constraints.maxWidth >= 600 && constraints.maxWidth < 1024;
+    return Container(
+      color: lightGreenColor,
+      child: Column(
+        children: [
+          LayoutBuilder(
+            builder: (context, constraints) {
+              bool isMobile = constraints.maxWidth < 600;
+              bool isTablet = constraints.maxWidth >= 600 && constraints.maxWidth < 1024;
 
-            return Container(
-              color: lightGreenColor,
-              padding: EdgeInsets.symmetric(vertical: 40, horizontal: isMobile ? 16 : (isTablet ? 32 : 64)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Looking to Design Similar Project?',
-                    style: TextStyle(
-                      color: textWhiteColor,
-                      fontSize: isMobile ? 24 : 32,
-                      fontWeight: FontWeight.bold,
+              return Container(
+                color: lightGreenColor,
+                padding: EdgeInsets.symmetric(vertical: 40, horizontal: isMobile ? 16 : (isTablet ? 32 : 64)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Looking to Design Similar Project?',
+                      style: TextStyle(
+                        color: textWhiteColor,
+                        fontSize: isMobile ? 24 : 32,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    'Contact me on any platform and I will be happy to help you out.',
-                    style: TextStyle(
-                      color: textWhiteColor,
-                      fontSize: isMobile ? 16 : 20,
+                    SizedBox(height: 8),
+                    Text(
+                      'Contact me on any platform and I will be happy to help you out.',
+                      style: TextStyle(
+                        color: textWhiteColor,
+                        fontSize: isMobile ? 16 : 20,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 40),
-                  if (isMobile)
-                    Column(
-                      children: _buildContactItems(isMobile),
-                    )
-                  else
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: _buildContactItems(isMobile),
-                    ),
-                ],
-              ),
-            );
-          },
-        ),
-        MessageMe(),
-      ],
+                    SizedBox(height: 40),
+                    if (isMobile)
+                      Column(
+                        children: _buildContactItems(isMobile),
+                      )
+                    else
+                      SingleChildScrollView(
+                        scrollDirection:Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: _buildContactItems(isMobile),
+                        ),
+                      ),
+                  ],
+                ),
+              );
+            },
+          ),
+          MessageMe(),
+        ],
+      ),
     );
   }
 

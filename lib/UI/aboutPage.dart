@@ -45,15 +45,15 @@ class _AboutPageState extends State<AboutPage> {
           "Unleash Your Creativity",
           "A Flutter Developer based in Pakistan,\nwith 2.5 Years of Experience",
           "I have 2.5 years of experience in Flutter Development. As a mid-level Flutter developer, I bring\nextensive experience in building and deploying robust, performant mobile applications for both\nAndroid, iOS, windows, linux and macos platforms. I have a strong background in Dart \nprogramming language and I am well-versed in Flutter's widgets, animations, and state management \ntechniques. I have also developed proficiency in integrating third-party APIs and services, including \nFirebase, FreshChat, Tamara Payment method, Hyper Pay payment method, Insider, BugFender Firebase \nAnalytics, and RESTful APIs. Additionally, I am adept at implementing and customizing UI designs \nusing Flutter's Material Design and Cupertino widgets, and I am skilled in version control using Git and \ncollaborative development using agile methodologies. With my ability to write clean and maintainable code \nand my dedication to stay up-to-date with the latest trends and best practices in mobile app development,\n I am confident in my ability to contribute to any Flutter project.",
-          "assets/aboutme.png",
+          "assets/UD.png",
           () {
             _launchURL();
           },
           darkGreenColor,
           appWhiteColor,
           600,
-          600,
-          500),
+          300,
+          300),
     );
   }
 
@@ -66,7 +66,7 @@ class _AboutPageState extends State<AboutPage> {
           "Unleash Your Creativity",
           "A Flutter Developer based in Pakistan,\nwith 2.5 Years of Experience",
           "I have 2.5 years of experience in Flutter Development. As a mid-level Flutter developer, I bring\nextensive experience in building and deploying robust, performant mobile applications for both\nAndroid, iOS, windows, linux and macos platforms. I have a strong background in Dart \nprogramming language and I am well-versed in Flutter's widgets, animations, and state management \ntechniques. I have also developed proficiency in integrating third-party APIs and services, including \nFirebase, FreshChat, Tamara Payment method, Hyper Pay payment method, Insider, BugFender Firebase \nAnalytics, and RESTful APIs. Additionally, I am adept at implementing and customizing UI designs \nusing Flutter's Material Design and Cupertino widgets, and I am skilled in version control using Git and \ncollaborative development using agile methodologies. With my ability to write clean and maintainable code \nand my dedication to stay up-to-date with the latest trends and best practices in mobile app development,\n I am confident in my ability to contribute to any Flutter project.",
-          "assets/mobileTemplate.jpg",
+          "assets/UD.jpg",
           () {
             _launchURL();
           },
@@ -90,107 +90,104 @@ class _AboutPageState extends State<AboutPage> {
           ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  height: imageHeight,
-                  width: imageWidth,
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: blackColor.withOpacity(0.5), // Shadow color
-                        spreadRadius: 4, // Spread radius
-                        blurRadius: 7, // Blur radius
-                        offset: Offset(0, 2), // Shadow position (x, y)
-                      ),
-                    ],
-                  ),
-                  child: Image.asset(
+                Expanded(
+                  child: Container(
                     height: imageHeight,
                     width: imageWidth,
-                    imageUrl,
-                    fit: BoxFit.contain,
+                    child: Image.asset(
+                      height: imageHeight,
+                      width: imageWidth,
+                      imageUrl,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
                 SizedBox(
                   width: 50,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          width: 50,
-                          height: 3,
-                          decoration: BoxDecoration(
-                            color: appWhiteColor,
+                        Row(
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 3,
+                              decoration: BoxDecoration(
+                                color: appWhiteColor,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              width: 10,
+                              height: 2,
+                              decoration: BoxDecoration(
+                                color: appWhiteColor,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 5,
+                            ),
+                            Container(
+                              width: 5,
+                              height: 5,
+                              decoration: BoxDecoration(color: orangeColor, shape: BoxShape.circle),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(heading1, style: headingTextStyle.copyWith(color: textColor)),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(heading2, style: headingTextStyle.copyWith(color: orangeColor)),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(heading3, style: headingTextStyle.copyWith(color: textColor)),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          description,
+                          style: descriptionStyle.copyWith(color: textColor),
+                          textAlign: TextAlign.left,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        MouseRegion(
+                          onEnter: (_) {
+                            setState(() {
+                              isHovered = true;
+                            });
+                          },
+                          onExit: (_) {
+                            setState(() {
+                              isHovered = false;
+                            });
+                          },
+                          child: CustomElevatedButton(
+                            text: "Download CV",
+                            textColor: findButtonTextColor ?? textWhiteColor,
+                            onPressed: onTap,
+                            backgroundColor: isHovered == true ? orangeColor : darkGreenColor ?? buttonColor,
+                            width: 40,
+                            height: 40,
+                            isPadding: false,
+                            hover: true,
                           ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          width: 10,
-                          height: 2,
-                          decoration: BoxDecoration(
-                            color: appWhiteColor,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Container(
-                          width: 5,
-                          height: 5,
-                          decoration: BoxDecoration(color: orangeColor, shape: BoxShape.circle),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text(heading1, style: headingTextStyle.copyWith(color: textColor)),
+                        )
                       ],
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(heading2, style: headingTextStyle.copyWith(color: orangeColor)),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(heading3, style: headingTextStyle.copyWith(color: textColor)),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      description,
-                      style: descriptionStyle.copyWith(color: textColor),
-                      textAlign: TextAlign.left,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    MouseRegion(
-                      onEnter: (_) {
-                        setState(() {
-                          isHovered = true;
-                        });
-                      },
-                      onExit: (_) {
-                        setState(() {
-                          isHovered = false;
-                        });
-                      },
-                      child: CustomElevatedButton(
-                        text: "Download CV",
-                        textColor: findButtonTextColor ?? textWhiteColor,
-                        onPressed: onTap,
-                        backgroundColor: isHovered == true ? orangeColor : darkGreenColor ?? buttonColor,
-                        width: 40,
-                        height: 40,
-                        isPadding: false,
-                        hover: true,
-                      ),
-                    )
-                  ],
+                  ),
                 ),
               ],
             )
@@ -271,16 +268,6 @@ class _AboutPageState extends State<AboutPage> {
                   height: 10,
                 ),
                 Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: blackColor.withOpacity(0.5), // Shadow color
-                        spreadRadius: 4, // Spread radius
-                        blurRadius: 7, // Blur radius
-                        offset: Offset(0, 2), // Shadow position (x, y)
-                      ),
-                    ],
-                  ),
                   child: Image.asset(
                     height: imageHeight,
                     width: imageWidth,

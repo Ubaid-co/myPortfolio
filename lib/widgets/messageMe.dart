@@ -336,6 +336,10 @@ class _MessageMeState extends State<MessageMe> {
                             phoneController.clear();
                             messageController.clear();
                           });
+                        } else {
+                          setState(() {
+                            isLoading = false;
+                          });
                         }
                       },
                       backgroundColor: orangeColor,

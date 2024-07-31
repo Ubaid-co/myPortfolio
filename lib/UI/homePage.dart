@@ -195,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                   _scrollToSection(_contactKey);
                 },
               )),
-          Container(key: _worksKey, child: PortfolioPage(isNarrow: true)),
+          Container(key: _worksKey, child: PortfolioPage()),
           Container(key: _journeyKey, child: ExperienceJourney()),
           Container(key: _contactKey, child: ContactSection()),
         ],

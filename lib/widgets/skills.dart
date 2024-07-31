@@ -40,14 +40,17 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        if (constraints.maxWidth > 600) {
-          return _buildWideLayoutAboutSection();
-        } else {
-          return _buildWideNarrowAboutSection();
-        }
-      },
+    return Container(
+      color: darkGreenColor,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          if (constraints.maxWidth > 600) {
+            return _buildWideLayoutAboutSection();
+          } else {
+            return _buildWideNarrowAboutSection();
+          }
+        },
+      ),
     );
   }
 
@@ -96,105 +99,111 @@ class _SkillsPageState extends State<SkillsPage> with SingleTickerProviderStateM
     return Container(
       padding: isNarrow == true ? EdgeInsets.symmetric(vertical: 20, horizontal: 25) : EdgeInsets.symmetric(vertical: 50, horizontal: 0),
       height: height,
+      width: double.infinity,
       decoration: BoxDecoration(color: color),
       child: isNarrow == false
           ? Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+              child: Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Row(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            width: 50,
-                            height: 3,
-                            decoration: BoxDecoration(
-                              color: appWhiteColor,
+                          Row(
+                            children: [
+                              Container(
+                                width: 50,
+                                height: 3,
+                                decoration: BoxDecoration(
+                                  color: appWhiteColor,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Container(
+                                width: 10,
+                                height: 2,
+                                decoration: BoxDecoration(
+                                  color: appWhiteColor,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Container(
+                                width: 5,
+                                height: 5,
+                                decoration: BoxDecoration(color: orangeColor, shape: BoxShape.circle),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(heading1, style: headingTextStyle.copyWith(color: textColor, fontSize: 26)),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(heading2, style: headingTextStyle.copyWith(color: orangeColor, fontSize: 38)),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(heading3, style: headingTextStyle.copyWith(color: textColor, fontSize: 27)),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          SizedBox(
+                            width: 400,
+                            child: Text(
+                              description,
+                              style: descriptionStyle.copyWith(color: textColor, fontSize: 14),
+                              textAlign: TextAlign.left,
                             ),
                           ),
                           SizedBox(
-                            width: 5,
+                            height: 20,
                           ),
-                          Container(
-                            width: 10,
-                            height: 2,
-                            decoration: BoxDecoration(
-                              color: appWhiteColor,
+                          MouseRegion(
+                            onEnter: (_) {
+                              setState(() {
+                                isHovered = true;
+                              });
+                            },
+                            onExit: (_) {
+                              setState(() {
+                                isHovered = false;
+                              });
+                            },
+                            child: CustomElevatedButton(
+                              text: "Hire Me",
+                              textColor: findButtonTextColor ?? textWhiteColor,
+                              onPressed: onTap,
+                              backgroundColor: isHovered == true ? orangeColor : darkGreenColor ?? buttonColor,
+                              width: 40,
+                              height: 40,
+                              isPadding: false,
+                              hover: true,
                             ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            width: 5,
-                            height: 5,
-                            decoration: BoxDecoration(color: orangeColor, shape: BoxShape.circle),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(heading1, style: headingTextStyle.copyWith(color: textColor, fontSize: 26)),
+                          )
                         ],
                       ),
                       SizedBox(
-                        height: 20,
+                        width: 50,
                       ),
-                      Text(heading2, style: headingTextStyle.copyWith(color: orangeColor, fontSize: 38)),
-                      SizedBox(
-                        height: 20,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 30),
+                        child: skillSet(),
                       ),
-                      Text(heading3, style: headingTextStyle.copyWith(color: textColor, fontSize: 27)),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: 400,
-                        child: Text(
-                          description,
-                          style: descriptionStyle.copyWith(color: textColor, fontSize: 14),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      MouseRegion(
-                        onEnter: (_) {
-                          setState(() {
-                            isHovered = true;
-                          });
-                        },
-                        onExit: (_) {
-                          setState(() {
-                            isHovered = false;
-                          });
-                        },
-                        child: CustomElevatedButton(
-                          text: "Hire Me",
-                          textColor: findButtonTextColor ?? textWhiteColor,
-                          onPressed: onTap,
-                          backgroundColor: isHovered == true ? orangeColor : darkGreenColor ?? buttonColor,
-                          width: 40,
-                          height: 40,
-                          isPadding: false,
-                          hover: true,
-                        ),
-                      )
                     ],
                   ),
-                  SizedBox(
-                    width: 50,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 30),
-                    child: skillSet(),
-                  ),
-                ],
-              ),
-            )
+                ),
+            ),
+          )
           : Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
